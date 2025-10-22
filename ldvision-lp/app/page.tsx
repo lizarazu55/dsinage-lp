@@ -67,24 +67,36 @@ const packages = [
     ],
     note: '料金は用途に応じてお見積り。まずは空き枠をご確認ください。',
   },
-  {
-    name: 'カスタム・占有枠',
-    duration: '長期／時間帯占有 / オーダーメイド対応',
-    features: [
-      '時間帯占有や特別編成など柔軟に設計',
-      '大型コラボレーション・撮影・イベント連動に対応',
-      '現地での収録や制作ディレクションも相談可',
-    ],
-    note: 'ヒアリングをもとにフルカスタムでプランニングします。',
-  },
+  // 一旦残す
+  // {
+  //   name: 'カスタム・占有枠',
+  //   duration: '長期／時間帯占有 / オーダーメイド対応',
+  //   features: [
+  //     '時間帯占有や特別編成など柔軟に設計',
+  //     '大型コラボレーション・撮影・イベント連動に対応',
+  //     '現地での収録や制作ディレクションも相談可',
+  //   ],
+  //   note: 'ヒアリングをもとにフルカスタムでプランニングします。',
+  // },
+]
+
+const visionSpecs = [
+  { label: 'LEDサイズ', value: '3840mm × 2880mm' },
+  { label: 'ドットピッチ', value: '3.8mm' },
+  { label: '画像数', value: '7050dots' },
+  { label: '解像度 (W×H)', value: '84 × 84' },
+  { label: 'サイズ (W×H)', value: '320mm × 320mm' },
+  { label: '画像構成', value: 'SMD1515' },
+  { label: '輝度', value: '5000 nits (cd/m2)' },
+  { label: '音声出力', value: 'あり' },
 ]
 
 const packageSections = [
   {
     key: 'spec',
-    label: 'Packages',
+    label: 'Specifications',
     heading: 'ビジョン仕様・スペック',
-    description: '掲載期間や放映回数に合わせた最適なプランをご提案します。',
+    description: '越谷LD-visionの技術仕様と性能詳細をご確認ください。',
   },
   {
     key: 'plan',
@@ -94,31 +106,20 @@ const packageSections = [
   },
 ]
 
-const submissionGuidelines = [
-  {
-    title: '動画コンテンツ',
-    bullets: [
-      'ファイル形式：MP4（H.264）／MOV',
-      '推奨尺：15秒または30秒（4:3比率）',
-      '音声付き素材はラウドネス-24〜-12 LUFS目安',
-    ],
-  },
-  {
-    title: '静止画コンテンツ',
-    bullets: [
-      'ファイル形式：JPEG／PNG',
-      '推奨サイズ：4:3比率（例：1920×1440px）',
-      'RGBカラーモード・可読性を確保したレイアウト',
-    ],
-  },
-  {
-    title: '入稿・編集フロー',
-    bullets: [
-      '初回入稿は放映開始7営業日前までが目安',
-      '差し替えは審査完了後に迅速に対応可能',
-      '特別編集時は別途編集手数料（30,000円＋税〜）',
-    ],
-  },
+const videoSubmissionSpecs = [
+  { label: 'フォーマット', value: 'MP4, WMV, AVI, MOV, DivX, MPG (mpeg1のみ), FLV, RSS, SWF, asp, Web (HTML)' },
+  { label: '動画サイズ', value: '横924 × 縦672 (11:8)' },
+  { label: 'ファイルサイズ', value: '800MB' },
+  { label: '映像コーデック', value: 'H.264, WMV2, WMV3, MPG, MPEG4, QTRLE, DivX' },
+  { label: '音声コーデック', value: 'AAC, MP3, WMAPRO, WMA, WMAV2' },
+  { label: 'フレームレート', value: '30fps' },
+  { label: '動画尺', value: '15秒 または 30秒' },
+]
+
+const imageSubmissionSpecs = [
+  { label: 'フォーマット', value: 'PNG, JPG, JPEG, BMP' },
+  { label: '画像サイズ', value: '横924 × 縦672 (11:8)' },
+  { label: 'ファイルサイズ', value: '800MB' },
 ]
 
 const restrictions = [
@@ -476,6 +477,33 @@ export default function Home() {
             <p className="text-white/60">駅前と商業地域の2つをカバーする導線で、高いリーチを確保します。</p>
           </div>
 
+          <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-12">
+            <div className="relative group">
+              <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/location.png"
+                  alt="越谷LD-vision 昼間の様子"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <p className="text-center text-white/70 mt-4 text-sm">昼間の様子</p>
+            </div>
+            <div className="relative group">
+              <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/night_location.png"
+                  alt="越谷LD-vision 夜間の様子"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <p className="text-center text-white/70 mt-4 text-sm">夜間の様子</p>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {locationHighlights.map((highlight) => (
               <div key={highlight.title} className="glass-effect rounded-2xl p-6 space-y-3">
@@ -488,13 +516,13 @@ export default function Home() {
       </section>
 
       <section id="traffic" className="py-20 relative">
-        <div className="section-padding max-w-5xl mx-auto">
+        <div className="section-padding max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">人流データ</h2>
             <p className="text-white/60">越谷駅東口の人流計測結果を基に、効果的な放映設計を行います（2025年7月計測）。</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
+          <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto">
             {heroStats.map((stat) => (
               <div key={`traffic-${stat.label}`} className="glass-effect rounded-2xl p-6 text-center">
                 <p className="text-4xl font-bold text-brand-light-blue">
@@ -506,8 +534,61 @@ export default function Home() {
             ))}
           </div>
 
-          <p className="text-sm text-white/50">
-            ※時間帯別・年代別・性別毎などの詳細データは、お問い合わせ頂いた企業様に個別でご案内可能です。
+          <div className="relative group mb-8">
+            <div className="grid md:grid-cols-3 gap-6 blur-[8px] group-hover:blur-[6px] transition-all duration-500">
+              <div className="relative h-[250px] md:h-[300px] rounded-2xl overflow-hidden bg-white/5">
+                <Image
+                  src="/時間別_来訪者数.png"
+                  alt="時間別来訪者数"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-contain p-4"
+                />
+              </div>
+              <div className="relative h-[250px] md:h-[300px] rounded-2xl overflow-hidden bg-white/5">
+                <Image
+                  src="/男女別_構成比率.png"
+                  alt="男女別構成比率"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-contain p-4"
+                />
+              </div>
+              <div className="relative h-[250px] md:h-[300px] rounded-2xl overflow-hidden bg-white/5">
+                <Image
+                  src="/年代別_構成比率.png"
+                  alt="年代別構成比率"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-contain p-4"
+                />
+              </div>
+            </div>
+
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="bg-[rgba(0,26,46,0.95)] backdrop-blur-sm rounded-2xl p-8 md:p-12 text-center space-y-6 max-w-md shadow-2xl border border-brand-light-blue/20 pointer-events-auto">
+                <div className="inline-block p-3 bg-brand-light-blue/10 rounded-full mb-2">
+                  <svg className="w-8 h-8 text-brand-light-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white">詳細な人流データ</h3>
+                <p className="text-white/80 leading-relaxed">
+                  時間帯別・年代別・性別毎の<br />
+                  詳細分析データ
+                </p>
+                <a
+                  href="#contact"
+                  className="inline-block bg-gradient-blue text-white px-8 py-3 rounded-full font-semibold tracking-wider hover:opacity-90 transition"
+                >
+                  分析データお問い合わせ
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-sm text-white/50 text-center">
+            ※詳細データは、お問い合わせ頂いた企業様に個別でご案内いたします。
           </p>
         </div>
       </section>
@@ -522,34 +603,71 @@ export default function Home() {
                 <p className="text-white/60">{section.description}</p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-8">
-                {packages.map((plan) => (
-                  <div key={`${section.key}-${plan.name}`} className="glass-effect rounded-2xl p-8 space-y-5">
-                    <div>
-                      <p className="text-brand-light-blue text-sm uppercase tracking-[0.3em]">{plan.duration}</p>
-                      <h3 className="text-2xl font-semibold mt-2">{plan.name}</h3>
+              {section.key === 'spec' ? (
+                <div className="grid md:grid-cols-5 gap-8 items-center">
+                  <div className="md:col-span-2 relative group">
+                    <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
+                      <Image
+                        src="/Hero.png"
+                        alt="越谷LD-visionビジョン"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 40vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
                     </div>
-                    <ul className="space-y-3 text-white/70 leading-relaxed">
-                      {plan.features.map((feature) => (
-                        <li key={`${section.key}-${plan.name}-${feature}`} className="flex items-start gap-2">
-                          <span className="mt-1 h-2 w-2 rounded-full bg-brand-light-blue"></span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="text-sm text-white/50">{plan.note}</p>
                   </div>
-                ))}
-              </div>
+                  <div className="md:col-span-3">
+                    <div className="glass-effect rounded-2xl overflow-hidden">
+                      <div className="bg-brand-light-blue/10 px-6 py-4 border-b border-white/10">
+                        <h3 className="text-xl font-semibold text-brand-light-blue">技術仕様</h3>
+                      </div>
+                      <div className="divide-y divide-white/5">
+                        {visionSpecs.map((spec, index) => (
+                          <div
+                            key={spec.label}
+                            className={`grid grid-cols-2 px-6 py-4 ${
+                              index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'
+                            }`}
+                          >
+                            <div className="text-white/70 font-medium">{spec.label}</div>
+                            <div className="text-white font-semibold">{spec.value}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 gap-8">
+                  {packages.map((plan) => (
+                    <div key={`${section.key}-${plan.name}`} className="glass-effect rounded-2xl p-8 space-y-5">
+                      <div>
+                        <p className="text-brand-light-blue text-sm uppercase tracking-[0.3em]">{plan.duration}</p>
+                        <h3 className="text-2xl font-semibold mt-2">{plan.name}</h3>
+                      </div>
+                      <ul className="space-y-3 text-white/70 leading-relaxed">
+                        {plan.features.map((feature) => (
+                          <li key={`${section.key}-${plan.name}-${feature}`} className="flex items-start gap-2">
+                            <span className="mt-1 h-2 w-2 rounded-full bg-brand-light-blue"></span>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="text-sm text-white/50">{plan.note}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
 
-          <div className="max-w-4xl mx-auto glass-effect rounded-2xl p-8 text-center">
+          {/* 一旦残す */}
+          {/* <div className="max-w-4xl mx-auto glass-effect rounded-2xl p-8 text-center">
             <h3 className="text-2xl font-semibold text-brand-light-blue mb-3">青年会議所・商工会議所会員特典</h3>
             <p className="text-white/70">
               対象会員企業は掲載料金を通常価格から30%OFFでご案内します。会員証明をご準備のうえ、備考欄にご記入ください。
             </p>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -557,27 +675,46 @@ export default function Home() {
         <div className="section-padding">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">入稿ガイドラインと掲載基準</h2>
-            <p className="text-white/60">素材形式や入稿スケジュールを共有し、安心して放映いただける体制を整えています。</p>
+            <p className="text-white/60">掲載コンテンツの技術仕様と入稿規定をご確認ください。</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
-            {submissionGuidelines.map((guide) => (
-              <div key={guide.title} className="glass-effect rounded-2xl p-8 space-y-4">
-                <h3 className="text-xl font-semibold text-brand-light-blue">{guide.title}</h3>
-                <ul className="space-y-3 text-white/70 leading-relaxed">
-                  {guide.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-start gap-2">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-brand-light-blue"></span>
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
+            <div className="glass-effect rounded-2xl overflow-hidden">
+              <div className="bg-brand-light-blue/10 px-6 py-4 border-b border-white/10">
+                <h3 className="text-xl font-semibold text-brand-light-blue">動画コンテンツ入稿規定</h3>
               </div>
-            ))}
-            <div className="glass-effect rounded-2xl p-8 space-y-4 border border-dashed border-brand-light-blue/40">
-              <h3 className="text-xl font-semibold text-brand-light-blue">詳細ガイドライン（準備中）</h3>
-              <p className="text-white/60 leading-relaxed">入稿テンプレートや追加条件は現在整理中です。仕様が確定次第、本セクションに反映してください。</p>
-              <p className="text-white/50 text-sm">※最新情報が入り次第、リストの更新をお願いします。</p>
+              <div className="divide-y divide-white/5">
+                {videoSubmissionSpecs.map((spec, index) => (
+                  <div
+                    key={spec.label}
+                    className={`grid grid-cols-3 px-6 py-4 ${
+                      index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'
+                    }`}
+                  >
+                    <div className="text-white/70 font-medium">{spec.label}</div>
+                    <div className="col-span-2 text-white text-sm">{spec.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="glass-effect rounded-2xl overflow-hidden">
+              <div className="bg-brand-light-blue/10 px-6 py-4 border-b border-white/10">
+                <h3 className="text-xl font-semibold text-brand-light-blue">静止画コンテンツ入稿規定</h3>
+              </div>
+              <div className="divide-y divide-white/5">
+                {imageSubmissionSpecs.map((spec, index) => (
+                  <div
+                    key={spec.label}
+                    className={`grid grid-cols-3 px-6 py-4 ${
+                      index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'
+                    }`}
+                  >
+                    <div className="text-white/70 font-medium">{spec.label}</div>
+                    <div className="col-span-2 text-white text-sm">{spec.value}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
