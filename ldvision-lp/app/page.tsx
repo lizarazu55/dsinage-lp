@@ -11,7 +11,7 @@ const navItems = [
   { href: '#vision', label: 'LD-visionとは' },
   { href: '#location', label: 'ロケーション' },
   { href: '#traffic', label: '人流データ' },
-  { href: '#packages', label: '放映プラン' },
+  { href: '#pricing', label: '放映プラン' },
   { href: '#guidelines', label: '入稿・基準' },
   { href: '#workflow', label: '導入の流れ' },
 ]
@@ -170,20 +170,22 @@ function Navigation({ scrolled }: { scrolled: boolean }) {
             LD-vision
           </button>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-6">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-white/70 hover:text-white transition-colors text-sm"
+              >
+                {item.label}
+              </a>
+            ))}
             <a
               href="#contact"
-              className="bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.7)] px-[11px] py-[6px] pb-[7.97px] rounded-full font-[350] tracking-[1.498px] text-[12.5px] uppercase hover:text-white transition-colors"
+              className="bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.7)] px-[11px] py-[6px] pb-[7.97px] rounded-full font-[350] tracking-[1.498px] text-[12.5px] uppercase hover:text-white transition-colors ml-2"
               style={{ fontFamily: 'var(--font-noto-sans)' }}
             >
               問い合わせ
-            </a>
-            <a
-              href="#packages"
-              className="bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.7)] px-[11px] py-[6px] pb-[7.97px] rounded-full font-[350] tracking-[1.498px] text-[12.5px] uppercase hover:text-white transition-colors"
-              style={{ fontFamily: 'var(--font-noto-sans)' }}
-            >
-              プラン
             </a>
           </div>
 
@@ -422,7 +424,7 @@ export default function Home() {
                   空き枠を問い合わせる
                 </a>
                 <a
-                  href="#packages"
+                  href="#pricing"
                   className="px-8 py-3 rounded-full border border-white/20 text-white/80 hover:border-brand-light-blue hover:text-white transition"
                 >
                   放映プランを見る
@@ -578,7 +580,7 @@ export default function Home() {
       <section id="packages" className="py-20 bg-brand-dark/30 relative">
         <div className="section-padding space-y-16">
           {packageSections.map((section) => (
-            <div key={section.key} className="max-w-6xl mx-auto">
+            <div key={section.key} id={section.key === 'plan' ? 'pricing' : undefined} className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
                 <p className="text-sm text-brand-light-blue/80 uppercase tracking-[0.3em]">{section.label}</p>
                 <h2 className="text-4xl md:text-5xl font-bold mb-4">{section.heading}</h2>
@@ -722,7 +724,7 @@ export default function Home() {
           <div className="grid md:grid-cols-5 gap-12 max-w-6xl mx-auto">
             <div className="md:col-span-2 space-y-8">
               <div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">枠の空き状況・資料請求</h2>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">お問い合わせ</h2>
                 <p className="text-white/60">
                   フォームまたは既存のご連絡チャネルよりお気軽にお問い合わせください。当日中のご返信も可能です。
                 </p>

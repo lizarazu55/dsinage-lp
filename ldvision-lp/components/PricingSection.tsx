@@ -77,7 +77,7 @@ export function PricingSectionV1() {
               </tr>
             </thead>
             <tbody>
-              {selectedPlan.plans.map((item, index) => (
+              {selectedPlan.plans.map((item) => (
                 <tr
                   key={item.period}
                   className={`border-b border-white/5 hover:bg-white/5 transition-colors ${
@@ -220,7 +220,7 @@ export function PricingSectionV1() {
             href="#contact"
             className="inline-block bg-gradient-blue text-white px-8 py-3 rounded-full font-semibold tracking-wider hover:opacity-90 transition"
           >
-            カスタムプランを相談する
+            相談する
           </a>
         </div>
       </div>
