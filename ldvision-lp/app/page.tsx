@@ -606,7 +606,7 @@ export default function Home() {
                 <p className="text-white/60">{section.description}</p>
               </div>
 
-              // ビジョン仕様
+              {/* ビジョン仕様 */}
               {section.key === 'spec' ? (
                 <div className="grid md:grid-cols-5 gap-8 items-center">
                   <div className="md:col-span-2 relative group">
