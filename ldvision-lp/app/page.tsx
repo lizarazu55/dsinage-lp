@@ -62,11 +62,14 @@ const packages = [
     duration: '1週間〜 / 週単位のローテーション',
     features: [
       '15秒を基本枠として30秒・45秒・60秒CMもアレンジメント可能',
-      '週単位でのローテーション設計',
+      '1枠は1時間あたり15秒×4回の放映枠',
       '放映時間：7:00〜24:00（17時間）',
     ],
     note: '料金は用途に応じてお見積り。まずは空き枠をご確認ください。',
   },
+  // {
+  //   name: '短期枠、長期枠、オーダーメイドにする？',
+  // },
   // 一旦残す
   // {
   //   name: 'カスタム・占有枠',
@@ -95,14 +98,14 @@ const packageSections = [
   {
     key: 'spec',
     label: 'Specifications',
-    heading: 'ビジョン仕様・スペック',
+    heading: 'ビジョン仕様',
     description: '越谷LD-visionの技術仕様と性能詳細をご確認ください。',
   },
   {
     key: 'plan',
     label: 'Packages',
-    heading: '放映プランと料金イメージ',
-    description: '掲載期間や放映回数に合わせた最適なプランをご提案します。',
+    heading: 'プランと料金',
+    description: '掲載期間や放映回数に合わせた最適な放映プランをご提案します。',
   },
 ]
 
@@ -482,13 +485,13 @@ export default function Home() {
               <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/location.png"
-                  alt="越谷LD-vision 昼間の様子"
+                  alt="越谷LD-vision 日中の様子"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <p className="text-center text-white/70 mt-4 text-sm">昼間の様子</p>
+              <p className="text-center text-white/70 mt-4 text-sm">日中</p>
             </div>
             <div className="relative group">
               <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
@@ -500,7 +503,7 @@ export default function Home() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <p className="text-center text-white/70 mt-4 text-sm">夜間の様子</p>
+              <p className="text-center text-white/70 mt-4 text-sm">夜間</p>
             </div>
           </div>
 
@@ -603,6 +606,7 @@ export default function Home() {
                 <p className="text-white/60">{section.description}</p>
               </div>
 
+              // ビジョン仕様
               {section.key === 'spec' ? (
                 <div className="grid md:grid-cols-5 gap-8 items-center">
                   <div className="md:col-span-2 relative group">
@@ -638,6 +642,7 @@ export default function Home() {
                   </div>
                 </div>
               ) : (
+                // 放映プランと料金
                 <div className="grid md:grid-cols-2 gap-8">
                   {packages.map((plan) => (
                     <div key={`${section.key}-${plan.name}`} className="glass-effect rounded-2xl p-8 space-y-5">
@@ -751,7 +756,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 relative">
+      <section id="contact" className="pt-20 relative">
         <div className="section-padding">
           <div className="grid md:grid-cols-5 gap-12 max-w-6xl mx-auto">
             <div className="md:col-span-2 space-y-8">
@@ -777,19 +782,19 @@ export default function Home() {
                   青年会議所・商工会議所会員の方は掲載料金30%OFFが適用されます。所属団体名を備考欄にご記入ください。
                 </p>
               </div>
-
-              <div className="space-y-1 text-white/60 text-sm">
-                <p>{companyInfo.name}</p>
-                <p>{companyInfo.service}</p>
-                <p>{companyInfo.address}</p>
-                <p>{companyInfo.note}</p>
-              </div>
             </div>
 
             <div className="md:col-span-3">
               <ContactForm />
             </div>
           </div>
+
+          {/* <div className="mt-12 max-w-4xl mx-auto text-center space-y-1 text-white/60 text-sm">
+            <p>{companyInfo.name}</p>
+            <p>{companyInfo.service}</p>
+            <p>{companyInfo.address}</p>
+            <p className="text-white/50 text-xs mt-2">{companyInfo.note}</p>
+          </div> */}
         </div>
       </section>
 
