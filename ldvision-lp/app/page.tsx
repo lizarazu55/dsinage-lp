@@ -2,6 +2,10 @@
 
 import Image from 'next/image'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { PricingSectionV1, PricingSectionV2 } from '@/components/PricingSection'
+
+// プランセクションのバージョン切り替え (V1 または V2)
+const PRICING_VERSION = 'V1'
 
 const navItems = [
   { href: '#vision', label: 'LD-visionとは' },
@@ -56,32 +60,6 @@ const locationHighlights = [
   },
 ]
 
-const packages = [
-  {
-    name: 'スタンダード枠',
-    duration: '1週間〜 / 週単位のローテーション',
-    features: [
-      '15秒を基本枠として30秒・45秒・60秒CMもアレンジメント可能',
-      '1枠は1時間あたり15秒×4回の放映枠',
-      '放映時間：7:00〜24:00（17時間）',
-    ],
-    note: '料金は用途に応じてお見積り。まずは空き枠をご確認ください。',
-  },
-  // {
-  //   name: '短期枠、長期枠、オーダーメイドにする？',
-  // },
-  // 一旦残す
-  // {
-  //   name: 'カスタム・占有枠',
-  //   duration: '長期／時間帯占有 / オーダーメイド対応',
-  //   features: [
-  //     '時間帯占有や特別編成など柔軟に設計',
-  //     '大型コラボレーション・撮影・イベント連動に対応',
-  //     '現地での収録や制作ディレクションも相談可',
-  //   ],
-  //   note: 'ヒアリングをもとにフルカスタムでプランニングします。',
-  // },
-]
 
 const visionSpecs = [
   { label: 'LEDサイズ', value: '3840mm × 2880mm' },
@@ -253,6 +231,7 @@ function Navigation({ scrolled }: { scrolled: boolean }) {
     </nav>
   )
 }
+
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -643,25 +622,7 @@ export default function Home() {
                 </div>
               ) : (
                 // 放映プランと料金
-                <div className="grid md:grid-cols-2 gap-8">
-                  {packages.map((plan) => (
-                    <div key={`${section.key}-${plan.name}`} className="glass-effect rounded-2xl p-8 space-y-5">
-                      <div>
-                        <p className="text-brand-light-blue text-sm uppercase tracking-[0.3em]">{plan.duration}</p>
-                        <h3 className="text-2xl font-semibold mt-2">{plan.name}</h3>
-                      </div>
-                      <ul className="space-y-3 text-white/70 leading-relaxed">
-                        {plan.features.map((feature) => (
-                          <li key={`${section.key}-${plan.name}-${feature}`} className="flex items-start gap-2">
-                            <span className="mt-1 h-2 w-2 rounded-full bg-brand-light-blue"></span>
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <p className="text-sm text-white/50">{plan.note}</p>
-                    </div>
-                  ))}
-                </div>
+                PRICING_VERSION === 'V1' ? <PricingSectionV1 /> : <PricingSectionV2 />
               )}
             </div>
           ))}
