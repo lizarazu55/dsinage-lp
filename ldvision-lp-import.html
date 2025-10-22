@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LD-vision | 越谷駅前デジタルサイネージ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-blue: #0066cc;
+      --brand-light-blue: #00aaff;
+      --brand-cyan: #00d4ff;
+      --brand-dark: #05060a;
+      --brand-panel: rgba(12, 16, 24, 0.76);
+      --brand-border: rgba(0, 170, 255, 0.22);
+      --text-strong: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.72);
+      --text-soft: rgba(255, 255, 255, 0.5);
+      --shadow-soft: 0 22px 60px rgba(0, 30, 60, 0.45);
+      --radius-lg: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Noto Sans JP', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-strong);
+      background: radial-gradient(circle at 0% 0%, rgba(0, 170, 255, 0.12), transparent 55%) #020205;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(circle at 50% 20%, rgba(0, 102, 204, 0.16), transparent 65%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    main {
+      padding-top: 92px;
+    }
+
+    section {
+      position: relative;
+      scroll-margin-top: 120px;
+    }
+
+    .section {
+      padding: 120px 0;
+    }
+
+    .section-tonal {
+      background: linear-gradient(180deg, rgba(5, 10, 18, 0.88), rgba(2, 4, 8, 0.95));
+    }
+
+    .container {
+      width: min(1180px, 100% - 48px);
+      margin: 0 auto;
+    }
+
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      background: rgba(6, 8, 14, 0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0, 170, 255, 0.18);
+    }
+
+    .nav-inner {
+      width: min(1180px, 100% - 48px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 18px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--brand-light-blue);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-strong);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand-blue), var(--brand-light-blue));
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      margin-left: 12px;
+      box-shadow: 0 10px 30px rgba(0, 102, 204, 0.4);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .hero {
+      min-height: calc(100vh - 92px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 160px 0 140px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(2, 6, 14, 0.9) 55%, rgba(0, 0, 0, 1) 100%);
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 20%, rgba(0, 170, 255, 0.2), transparent 65%);
+      z-index: -1;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(0, 212, 255, 0.65);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+    }
+
+    .lead {
+      max-width: 760px;
+      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+      color: var(--text-muted);
+    }
+
+    .subcopy {
+      font-size: 0.92rem;
+      color: var(--text-soft);
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .button-primary,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      transition: transform 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, var(--brand-blue), var(--brand-light-blue));
+      color: #fff;
+      box-shadow: 0 14px 40px rgba(0, 102, 204, 0.35);
+    }
+
+    .button-primary:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .button-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .button-secondary:hover {
+      border-color: var(--brand-light-blue);
+      color: #fff;
+    }
+
+    .stats-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin: 40px 0 12px;
+    }
+
+    .glass-card {
+      background: linear-gradient(135deg, rgba(0, 102, 204, 0.12), rgba(0, 26, 60, 0.32));
+      border: 1px solid var(--brand-border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .stat-value {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--brand-light-blue);
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .stat-suffix {
+      font-size: 1.4rem;
+      color: var(--text-muted);
+    }
+
+    .stat-label {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .hero-note {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 60px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(0, 212, 255, 0.7);
+      margin-bottom: 18px;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      margin-bottom: 18px;
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .cards-grid h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .cards-grid p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .list-dots {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .list-dots li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .list-dots li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--brand-light-blue);
+      transform: translateY(-50%);
+    }
+
+    .note {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+    }
+
+    .plan-duration {
+      font-size: 0.75rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--brand-light-blue);
+      margin-bottom: 6px;
+    }
+
+    .traffic-note {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .callout-card {
+      border-style: dashed;
+      border-color: rgba(0, 170, 255, 0.45);
+      background: linear-gradient(135deg, rgba(0, 102, 204, 0.08), rgba(0, 26, 60, 0.25));
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .workflow-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+      color: var(--brand-light-blue);
+    }
+
+    .workflow-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 48px;
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      margin-bottom: 18px;
+    }
+
+    .contact-info p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .contact-reasons {
+      margin: 24px 0;
+    }
+
+    .member-card {
+      margin: 24px 0;
+    }
+
+    .company-meta {
+      display: grid;
+      gap: 6px;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .form-card {
+      padding: 36px;
+    }
+
+    form {
+      display: grid;
+      gap: 24px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--brand-light-blue);
+      box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.15);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 160px;
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 16px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--brand-blue), var(--brand-light-blue));
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .helper-text {
+      font-size: 0.8rem;
+      color: var(--brand-light-blue);
+      margin-left: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 48px 0 64px;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(2, 4, 8, 0.9);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 960px) {
+      .nav-inner {
+        justify-content: center;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 140px 0 120px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      main {
+        padding-top: 120px;
+      }
+
+      .section {
+        padding: 96px 0;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 9vw, 3.4rem);
+      }
+
+      .glass-card {
+        padding: 26px;
+      }
+
+      .form-card {
+        padding: 28px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links {
+        gap: 16px;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .button-primary,
+      .button-secondary {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="#hero" class="brand">LD-vision</a>
+      <div class="nav-links">
+        <a href="#vision">LD-visionとは</a>
+        <a href="#location">ロケーション</a>
+        <a href="#traffic">人流データ</a>
+        <a href="#packages">放映プラン</a>
+        <a href="#guidelines">入稿・基準</a>
+        <a href="#workflow">導入の流れ</a>
+        <a href="#contact" class="nav-cta">空き枠を問い合わせる</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="container">
+        <p class="eyebrow">Produced by Rizarazu Corporation</p>
+        <h1>越谷 LD-vision</h1>
+        <p class="lead">
+          越谷駅東口から徒歩2分。月間295,363人（2025年7月実績）が行き交う駅前広場で、大型LEDビジョンが地域とブランドを結びます。
+        </p>
+        <p class="subcopy">
+          横幅3.84m × 縦2.88mの4:3大型スクリーン／音声対応／放映時間 7:00〜24:00（17時間）
+        </p>
+        <div class="cta-group">
+          <a href="#contact" class="button-primary">空き枠を問い合わせる</a>
+          <a href="#packages" class="button-secondary">放映プランを見る</a>
+        </div>
+
+        <div class="stats-grid">
+          <article class="glass-card stat-card">
+            <p class="stat-value">295,363<span class="stat-suffix">人</span></p>
+            <p class="stat-label">月間来訪者数（2025年7月実績）</p>
+          </article>
+          <article class="glass-card stat-card">
+            <p class="stat-value">9,528<span class="stat-suffix">人</span></p>
+            <p class="stat-label">1日平均来訪者数</p>
+          </article>
+          <article class="glass-card stat-card">
+            <p class="stat-value">17<span class="stat-suffix">時間</span></p>
+            <p class="stat-label">稼働時間（7:00〜24:00）</p>
+          </article>
+        </div>
+        <p class="hero-note">※人流分析値は提案資料（2025年7月計測）に基づきます。最新データはお問い合わせください。</p>
+      </div>
+    </section>
+
+    <section id="vision" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker">Overview</span>
+          <h2>LD-visionとは</h2>
+          <p>
+            越谷駅東口のランドマークLEDビジョンとして、駅前広場と商業施設を結ぶ導線でブランドの世界観を印象的に届けます。
+          </p>
+        </div>
+
+        <div class="cards-grid">
+          <article class="glass-card">
+            <h3>駅前ランドマークへの掲出</h3>
+            <p>越谷駅東口から徒歩2分。駅前広場と商業施設を結ぶ導線の正面で、通勤・通学・買い物客にダイレクトリーチできます。</p>
+          </article>
+          <article class="glass-card">
+            <h3>4:3大型LEDパネル</h3>
+            <p>横幅3.84m × 縦2.88mの迫力サイズ。動画・静止画・音声による訴求で、街行く人の記憶に残ります。</p>
+          </article>
+          <article class="glass-card">
+            <h3>長時間ローテーション</h3>
+            <p>午前7時〜24時の17時間放映により、朝夕のピークからナイトタイムまで幅広い時間帯をカバーします。</p>
+          </article>
+          <article class="glass-card">
+            <h3>運用・差し替えサポート</h3>
+            <p>入稿データの確認や差し替えをサポート。特別編集が必要な場合も30,000円＋税〜で対応可能です。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="location" class="section section-tonal">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker">Location</span>
+          <h2>ロケーションの強み</h2>
+          <p>駅前広場と地域のハブ導線で高いリーチを確保します。</p>
+        </div>
+
+        <div class="cards-grid">
+          <article class="glass-card">
+            <h3>駅改札からの導線上</h3>
+            <p>東口改札から数十秒で目に入る位置に設置。朝夕の乗降客を逃さず捉えます。</p>
+          </article>
+          <article class="glass-card">
+            <h3>商業エリアとの交差点</h3>
+            <p>ショッピングモールや飲食街へ向かう歩行者導線上にあり、購買意欲の高い来訪者へリーチします。</p>
+          </article>
+          <article class="glass-card">
+            <h3>昼夜を問わない視認性</h3>
+            <p>高輝度LEDで日中の自然光にも強く、夜間は街のランドマークとして存在感を放ちます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="traffic" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker">Traffic</span>
+          <h2>人流データ（2025年7月）</h2>
+          <p>越谷駅東口の人流計測結果を基に、効果的な放映設計を行います。</p>
+        </div>
+
+        <div class="stats-grid">
+          <article class="glass-card stat-card">
+            <p class="stat-value">295,363<span class="stat-suffix">人</span></p>
+            <p class="stat-label">月間来訪者数（2025年7月実績）</p>
+          </article>
+          <article class="glass-card stat-card">
+            <p class="stat-value">9,528<span class="stat-suffix">人</span></p>
+            <p class="stat-label">1日平均来訪者数</p>
+          </article>
+          <article class="glass-card stat-card">
+            <p class="stat-value">17<span class="stat-suffix">時間</span></p>
+            <p class="stat-label">稼働時間（7:00〜24:00）</p>
+          </article>
+        </div>
+        <p class="traffic-note">※時間帯別・性年代別などの詳細データは、お問い合わせいただいた企業様に個別資料としてご案内可能です。</p>
+      </div>
+    </section>
+
+    <section id="packages" class="section section-tonal">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker">Packages</span>
+          <h2>放映プランと料金イメージ</h2>
+          <p>掲載期間や放映回数に合わせた最適なプランをご提案します。</p>
+        </div>
+
+        <div class="cards-grid">
+          <article class="glass-card">
+            <p class="plan-duration">1週間〜</p>
+            <h3>スタンダード枠</h3>
+            <ul class="list-dots">
+              <li>15秒スポット推奨（尺の調整可）</li>
+              <li>週単位でのローテーション設計</li>
+              <li>放映時間：7:00〜24:00（17時間）</li>
+            </ul>
+            <p class="note">料金は用途に応じてお見積りします。まずは空き枠をご確認ください。</p>
+          </article>
+
+          <article class="glass-card">
+            <p class="plan-duration">4週間〜</p>
+            <h3>キャンペーン枠</h3>
+            <ul class="list-dots">
+              <li>イベントやセール期間の集中的な露出向け</li>
+              <li>複数素材の差し替えや週次レポートをセットで提供</li>
+              <li>長期掲出で1放映あたりの単価を最適化</li>
+            </ul>
+            <p class="note">キャンペーンの目的やターゲットに合わせたローテーションをご提案します。</p>
+          </article>
+
+          <article class="glass-card">
+            <p class="plan-duration">長期／時間帯占有</p>
+            <h3>カスタム・占有枠</h3>
+            <ul class="list-dots">
+              <li>時間帯占有や特別編成など柔軟に設計</li>
+              <li>大型コラボレーション・撮影・イベント連動に対応</li>
+              <li>現地での収録や制作ディレクションも相談可</li>
+            </ul>
+            <p class="note">ヒアリングをもとにオーダーメイドでプランニングします。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="guidelines" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker">Guidelines</span>
+          <h2>入稿ガイドラインと掲載基準</h2>
+          <p>素材形式や入稿スケジュールを共有し、安心して放映いただける体制を整えています。</p>
+        </div>
+
+        <div class="cards-grid">
+          <article class="glass-card">
+            <h3>動画コンテンツ</h3>
+            <ul class="list-dots">
+              <li>ファイル形式：MP4（H.264）／MOV</li>
+              <li>推奨尺：15秒または30秒（4:3比率）</li>
+              <li>音声付き素材はラウドネス-24〜-12 LUFS目安</li>
+            </ul>
+          </article>
+
+          <article class="glass-card">
+            <h3>静止画コンテンツ</h3>
+            <ul class="list-dots">
+              <li>ファイル形式：JPEG／PNG</li>
+              <li>推奨サイズ：4:3比率（例：1920×1440px）</li>
+              <li>RGBカラーモード・可読性を確保したレイアウト</li>
+            </ul>
+          </article>
+
+          <article class="glass-card">
+            <h3>入稿・編集フロー</h3>
+            <ul class="list-dots">
+              <li>初回入稿は放映開始7営業日前までが目安</li>
+              <li>差し替えは審査完了後に迅速に対応可能</li>
+              <li>特別編集時は別途編集手数料（30,000円＋税〜）</li>
+            </ul>
+          </article>
+
+          <article class="glass-card callout-card">
+            <h3>詳細ガイドライン（準備中）</h3>
+            <p>スライド16で定義予定の入稿テンプレートや追加条件は現在整理中です。仕様が確定次第、本セクションに追記してください。</p>
+            <p class="note">※最新情報が入り次第、上記リストの更新をお願いします。</p>
+          </article>
+        </div>
+
+        <div class="glass-card" style="margin-top: 36px;">
+          <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--brand-light-blue);">掲載できないコンテンツ（抜粋）</h3>
+          <ul class="list-dots">
+            <li>公序良俗に反する、または暴力・差別的な表現</li>
+            <li>誤認を招く恐れのある虚偽・誇大な広告内容</li>
+            <li>第三者の著作権・肖像権・商標権等を侵害する素材</li>
+            <li>各種法律（薬機法・景表法など）に抵触する表現</li>
+            <li>周辺環境に配慮して禁止されている過度な点滅や大音量</li>
+          </ul>
+          <p class="note" style="margin-top: 16px;">※個別案件の可否は事前にご相談ください。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow" class="section section-tonal">
+      <div class="container">
+        <div class="section-header">
+          <span class="kicker">Workflow</span>
+          <h2>導入の流れ</h2>
+          <p>初回相談から放映後のフォローまで、専任担当が伴走します。</p>
+        </div>
+
+        <div class="workflow-grid">
+          <article class="glass-card workflow-card">
+            <h3>01. お問い合わせ</h3>
+            <p>掲載希望時期や訴求内容をヒアリングし、枠の空き状況と概算費用をお伝えします。</p>
+          </article>
+          <article class="glass-card workflow-card">
+            <h3>02. プラン設計</h3>
+            <p>人流データやターゲットに合わせ、放映ローテーションやクリエイティブの方向性を共同設計します。</p>
+          </article>
+          <article class="glass-card workflow-card">
+            <h3>03. データ入稿・審査</h3>
+            <p>入稿ガイドラインに沿って素材を確認。必要に応じて差し替えサポートや編集対応を行います。</p>
+          </article>
+          <article class="glass-card workflow-card">
+            <h3>04. 放映開始・フィードバック</h3>
+            <p>放映開始後も素材差し替えやレポーティングで伴走。長期掲出への拡張もスムーズです。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h2>枠の空き状況・資料請求</h2>
+            <p>フォームまたは既存のご連絡チャネルより、お気軽にお問い合わせください。最短で当日中に担当よりご返信します。</p>
+
+            <ul class="list-dots contact-reasons">
+              <li>放映枠の空き状況と料金を知りたい</li>
+              <li>キャンペーン時期に向けたスケジュールを相談したい</li>
+              <li>クリエイティブ制作も含めてまとめて依頼したい</li>
+            </ul>
+
+            <div class="glass-card member-card">
+              <h3 style="font-size: 1.1rem; margin-bottom: 8px; color: var(--brand-light-blue);">会員特典のご案内</h3>
+              <p>青年会議所・商工会議所会員の方は掲載料金30%OFFが適用されます。所属団体名を備考欄にご記入ください。</p>
+            </div>
+
+            <div class="company-meta">
+              <p>株式会社Rizarazu</p>
+              <p>越谷 LD-vision 運営／広告企画・制作</p>
+              <p>〒343-0816 埼玉県越谷市弥生町505-28</p>
+              <p>LD-visionはRizarazu Corporationが企画・運用する地域密着型デジタルサイネージです。</p>
+            </div>
+          </div>
+
+          <div class="glass-card form-card">
+            <form action="#" method="post">
+              <div class="form-grid">
+                <div>
+                  <label for="company">会社・店舗名</label>
+                  <input id="company" name="company" type="text" placeholder="株式会社〇〇">
+                </div>
+                <div>
+                  <label for="name">お名前<span class="helper-text">※必須</span></label>
+                  <input id="name" name="name" type="text" placeholder="山田太郎" required>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div>
+                  <label for="email">メールアドレス<span class="helper-text">※必須</span></label>
+                  <input id="email" name="email" type="email" placeholder="example@email.com" required>
+                </div>
+                <div>
+                  <label for="phone">電話番号<span class="helper-text">※必須</span></label>
+                  <input id="phone" name="phone" type="tel" placeholder="048-000-0000" required>
+                </div>
+              </div>
+
+              <div>
+                <label for="message">お問い合わせ内容<span class="helper-text">※必須</span></label>
+                <textarea id="message" name="message" placeholder="放映希望期間やご相談内容をご記入ください。" required></textarea>
+              </div>
+
+              <button type="submit" class="submit-button">入力内容を送信する</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Rizarazu Corporation. All Rights Reserved.
+  </footer>
+</body>
+</html>
