@@ -90,7 +90,7 @@ const videoSubmissionSpecs = [
   { label: '映像コーデック', value: 'H.264, WMV2, WMV3, MPG, MPEG4, QTRLE, DivX' },
   { label: '音声コーデック', value: 'AAC, MP3, WMAPRO, WMA, WMAV2' },
   { label: 'フレームレート', value: '30fps' },
-  { label: '動画尺', value: '15秒 または 30秒' },
+  { label: '動画尺', value: '15秒, 30秒, 60秒' },
 ]
 
 const imageSubmissionSpecs = [
