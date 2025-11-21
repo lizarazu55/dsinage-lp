@@ -26,16 +26,12 @@ const overviewPoints = [
   {
     title: '駅前ランドマークでの広告出稿',
     description:
-      '越谷駅東口から徒歩2分。駅前と商業施設を結ぶ通りの正面に位置し、通勤・通学・買い物客にダイレクトにリーチできます。',
+      '駅前と商業施設を結ぶ通りの正面に位置し、7〜24時の17時間放映で幅広い層に継続的かつダイレクトにリーチできます。',
   },
   {
     title: '4:3大型LEDパネル',
     description:
       '横幅3.84m × 縦2.88mの大型サイズ。迫力のある動画・静止画・音声による訴求で街行く人の記憶に残ります。',
-  },
-  {
-    title: '長時間ローテーション',
-    description: '7〜24時の17時間放映により、朝夕のピークからナイトタイムまで幅広い時間帯をカバーします。',
   },
   {
     title: '運用・差し替えサポート',
@@ -175,14 +171,14 @@ function Navigation({ scrolled }: { scrolled: boolean }) {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-white/70 hover:text-white transition-colors text-sm"
+                className="text-white/70 hover:text-white transition-colors text-[15px] lg:text-base"
               >
                 {item.label}
               </a>
             ))}
             <a
               href="#contact"
-              className="bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.7)] px-[11px] py-[6px] pb-[7.97px] rounded-full font-[350] tracking-[1.498px] text-[12.5px] uppercase hover:text-white transition-colors ml-2"
+              className="bg-gradient-blue text-white px-[15px] py-[9.5px] rounded-full font-semibold tracking-[1.6px] text-[13.5px] uppercase shadow-lg shadow-brand-light-blue/30 hover:opacity-90 transition ml-2"
               style={{ fontFamily: 'var(--font-noto-sans)' }}
             >
               問い合わせ
@@ -390,20 +386,19 @@ export default function Home() {
       <Navigation scrolled={scrolled} />
 
       <section id="hero" className="bg-gradient-to-b from-black via-gray-900 to-black">
-        <div className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden">
-          <Image
-            src="/Hero.png"
-            alt="越谷LD-vision屋外ビジョン"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-            style={{
-              objectPosition: 'center',
-            }}
-          />
+        <div className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden mt-16">
+            <Image
+              src="/Hero.png"
+              alt="越谷LD-vision屋外ビジョン"
+              fill
+              quality={90}
+              sizes="(max-width: 768px) 100vw, 1152px"
+              priority
+              className="object-contain drop-shadow-[0_24px_48px_rgba(0,175,255,0.25)]"
+              style={{ objectPosition: 'center' }}
+            />
         </div>
-
+        
         <div className="section-padding py-16 md:py-20">
           <div className="max-w-5xl mx-auto text-center space-y-8">
             <div className="bg-[#001a2e] rounded-[32px] p-8 md:p-12 space-y-6">
@@ -412,7 +407,9 @@ export default function Home() {
                 越谷 LD-vision
               </h1>
               <p className="text-base md:text-lg text-white/90 leading-relaxed">
-                越谷駅東口から徒歩2分。月間約300,000人が行き交う駅前で、<br className="hidden md:block" />
+                越谷駅東口から徒歩2分。<br/>月間
+                <span className="text-brand-light-blue font-semibold text-[24px] md:text-[28px]">約300,000人</span>
+                が行き交う駅前で、<br className="hidden md:block" />
                 大型LEDビジョンが地域とブランドを結びます。
               </p>
 
@@ -443,7 +440,7 @@ export default function Home() {
             <p className="text-white/60">越谷駅東口のランドマークLEDビジョンとして、ブランド体験を印象的に届けます。</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {overviewPoints.map((point) => (
               <div key={point.title} className="glass-effect rounded-2xl p-8 space-y-3">
                 <h3 className="text-xl font-semibold text-brand-light-blue">{point.title}</h3>
@@ -465,7 +462,7 @@ export default function Home() {
             <div className="relative group">
               <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/location.png"
+                  src="/location6.jpg"
                   alt="越谷LD-vision 日中の様子"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -477,7 +474,7 @@ export default function Home() {
             <div className="relative group">
               <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/night_location.png"
+                  src="/night_location2.png"
                   alt="越谷LD-vision 夜間の様子"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -518,7 +515,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="relative group mb-8">
+          <div className="relative group mb-14">
             <div className="grid md:grid-cols-3 gap-6 blur-[8px] group-hover:blur-[6px] transition-all duration-500">
               <div className="relative h-[250px] md:h-[300px] rounded-2xl overflow-hidden bg-white/5">
                 <Image
@@ -742,7 +739,7 @@ export default function Home() {
               <div className="glass-effect rounded-2xl p-6 space-y-2">
                 <h3 className="text-lg font-semibold text-brand-light-blue">会員特典のご案内</h3>
                 <p className="text-white/70">
-                  青年会議所・商工会議所会員の方は掲載料金30%OFFが適用されます。所属団体名を備考欄にご記入ください。
+                  青年会議所・商工会議所会員の方は<br /><span className="font-bold text-[18px] md:text-[20px]">特別割引</span>が適用されます。所属団体名を備考欄にご記入ください。
                 </p>
               </div>
             </div>
