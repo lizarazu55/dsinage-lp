@@ -6,34 +6,34 @@ const pricingPlans = [
   {
     duration: '15秒',
     plans: [
-      { period: '1週間', airCount: 476, price: 60000, pricePerAir: 126, pricePerPerson: 0.9 },
-      { period: '2週間', airCount: 952, price: 108000, pricePerAir: 113, pricePerPerson: 0.81 },
-      { period: '1ヶ月', airCount: 1904, price: 194400, pricePerAir: 102, pricePerPerson: 0.73 },
-      { period: '3ヶ月', airCount: 5718, price: 524800, pricePerAir: 92, pricePerPerson: 0.66 },
-      { period: '6ヶ月', airCount: 17154, price: 944700, pricePerAir: 55, pricePerPerson: 0.59 },
-      { period: '1年', airCount: 34306, price: 1700000, pricePerAir: 50, pricePerPerson: 0.53 },
+      { period: '1週間', airCount: 476, price: 60000, pricePerAir: 126, pricePerPerson: 0.89 },
+      { period: '2週間', airCount: 952, price: 108000, pricePerAir: 113, pricePerPerson: 0.80 },
+      { period: '1ヶ月', airCount: 1904, price: 194400, pricePerAir: 93, pricePerPerson: 0.65 },
+      { period: '3ヶ月', airCount: 5718, price: 524800, pricePerAir: 84, pricePerPerson: 0.59 },
+      { period: '6ヶ月', airCount: 17154, price: 944700, pricePerAir: 76, pricePerPerson: 0.53 },
+      { period: '1年', airCount: 34306, price: 1700000, pricePerAir: 68, pricePerPerson: 0.47 },
     ],
   },
   {
     duration: '30秒',
     plans: [
-      { period: '1週間', airCount: 476, price: 120000, pricePerAir: 252, pricePerPerson: 1.8 },
-      { period: '2週間', airCount: 952, price: 216000, pricePerAir: 227, pricePerPerson: 1.62 },
-      { period: '1ヶ月', airCount: 1904, price: 388800, pricePerAir: 204, pricePerPerson: 1.46 },
-      { period: '3ヶ月', airCount: 5718, price: 1096000, pricePerAir: 192, pricePerPerson: 1.37 },
-      { period: '6ヶ月', airCount: 17154, price: 1889400, pricePerAir: 110, pricePerPerson: 1.18 },
-      { period: '1年', airCount: 34306, price: 3400000, pricePerAir: 99, pricePerPerson: 1.06 },
+      { period: '1週間', airCount: 476, price: 120000, pricePerAir: 252, pricePerPerson: 1.78 },
+      { period: '2週間', airCount: 952, price: 216000, pricePerAir: 226, pricePerPerson: 1.60 },
+      { period: '1ヶ月', airCount: 1904, price: 388800, pricePerAir: 186, pricePerPerson: 1.30 },
+      { period: '3ヶ月', airCount: 5718, price: 1096000, pricePerAir: 168, pricePerPerson: 1.18 },
+      { period: '6ヶ月', airCount: 17154, price: 1889400, pricePerAir: 152, pricePerPerson: 1.06 },
+      { period: '1年', airCount: 34306, price: 3400000, pricePerAir: 136, pricePerPerson: 0.94 },
     ],
   },
   {
     duration: '60秒',
     plans: [
-      { period: '1週間', airCount: 476, price: 240000, pricePerAir: 504, pricePerPerson: 3.6 },
-      { period: '2週間', airCount: 952, price: 432000, pricePerAir: 454, pricePerPerson: 3.24 },
-      { period: '1ヶ月', airCount: 1904, price: 777600, pricePerAir: 408, pricePerPerson: 2.92 },
-      { period: '3ヶ月', airCount: 5718, price: 2192000, pricePerAir: 383, pricePerPerson: 2.74 },
-      { period: '6ヶ月', airCount: 17154, price: 3778800, pricePerAir: 220, pricePerPerson: 2.36 },
-      { period: '1年', airCount: 34306, price: 6800000, pricePerAir: 198, pricePerPerson: 2.12 },
+      { period: '1週間', airCount: 476, price: 240000, pricePerAir: 504, pricePerPerson: 3.56 },
+      { period: '2週間', airCount: 952, price: 432000, pricePerAir: 452, pricePerPerson: 3.20 },
+      { period: '1ヶ月', airCount: 1904, price: 777600, pricePerAir: 372, pricePerPerson: 2.60 },
+      { period: '3ヶ月', airCount: 5718, price: 2192000, pricePerAir: 336, pricePerPerson: 2.36 },
+      { period: '6ヶ月', airCount: 17154, price: 3778800, pricePerAir: 304, pricePerPerson: 2.12 },
+      { period: '1年', airCount: 34306, price: 6800000, pricePerAir: 272, pricePerPerson: 1.88 },
     ],
   },
 ]
@@ -119,11 +119,11 @@ export function PricingSectionV1() {
         <h3 className="text-2xl md:text-3xl font-bold text-white">圧倒的なコストパフォーマンス</h3>
         <div className="max-w-2xl mx-auto space-y-4">
           <p className="text-white/80 text-lg">
-            月間<span className="text-brand-light-blue font-bold text-2xl mx-2">295,363人</span>の来訪者に
+            月間<span className="text-brand-light-blue font-bold text-4xl mx-2">295,363人</span>の来訪者に
           </p>
           <p className="text-white/80 text-lg">
             わずか
-            <span className="text-brand-light-blue font-bold text-3xl mx-2">
+            <span className="text-brand-light-blue font-bold text-5xl mx-2">
               {selectedPlan.plans[selectedPlan.plans.length - 1].pricePerPerson}円/人
             </span>
             でリーチ
