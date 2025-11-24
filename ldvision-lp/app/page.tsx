@@ -152,9 +152,8 @@ function Navigation({ scrolled }: { scrolled: boolean }) {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 bg-[#04060c] border-b ${
-        scrolled ? 'border-[rgba(0,170,255,0.2)] shadow-lg' : 'border-transparent'
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 bg-[#04060c] border-b ${scrolled ? 'border-[rgba(0,170,255,0.2)] shadow-lg' : 'border-transparent'
+        }`}
     >
       <div className="section-padding">
         <div className="flex items-center justify-between py-[18px]">
@@ -201,9 +200,8 @@ function Navigation({ scrolled }: { scrolled: boolean }) {
         </div>
 
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
-            mobileMenuOpen ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0'
-          }`}
+          className={`md:hidden overflow-hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0'
+            }`}
         >
           <div className="bg-brand-dark/95 backdrop-blur-md rounded-lg p-4 space-y-2">
             {navItems.map((item) => (
@@ -387,18 +385,18 @@ export default function Home() {
 
       <section id="hero" className="bg-gradient-to-b from-black via-gray-900 to-black">
         <div className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden mt-16">
-            <Image
-              src="/Hero.png"
-              alt="越谷LD-vision屋外ビジョン"
-              fill
-              quality={90}
-              sizes="(max-width: 768px) 100vw, 1152px"
-              priority
-              className="object-contain drop-shadow-[0_24px_48px_rgba(0,175,255,0.25)]"
-              style={{ objectPosition: 'center' }}
-            />
+          <Image
+            src="/Hero.png"
+            alt="越谷LD-vision屋外ビジョン"
+            fill
+            quality={90}
+            sizes="(max-width: 768px) 100vw, 1152px"
+            priority
+            className="object-contain drop-shadow-[0_24px_48px_rgba(0,175,255,0.25)]"
+            style={{ objectPosition: 'center' }}
+          />
         </div>
-        
+
         <div className="section-padding py-16 md:py-20">
           <div className="max-w-5xl mx-auto text-center space-y-8">
             <div className="bg-[#001a2e] rounded-[32px] p-8 md:p-12 space-y-6">
@@ -406,9 +404,9 @@ export default function Home() {
               <h1 className="text-4xl md:text-6xl font-bold leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
                 越谷 LD-vision
               </h1>
-              <p className="text-base md:text-lg text-white/90 leading-relaxed">
-                越谷駅東口から徒歩2分。<br/>月間
-                <span className="text-brand-light-blue font-semibold text-[24px] md:text-[28px]">約300,000人</span>
+              <p className="text-base md:text-lg text-white/90 leading-8 md:leading-9 tracking-[0.04em] md:tracking-[0.05em]">
+                越谷駅東口から<span className="text-brand-light-blue font-semibold text-2xl md:text-3xl tracking-[0.05em] md:tracking-[0.06em] mx-2">徒歩2分</span><br />月間
+                <span className="text-brand-light-blue font-semibold text-4xl md:text-5xl tracking-[0.05em] md:tracking-[0.06em] mx-2">約300,000人</span>
                 が行き交う駅前で、<br className="hidden md:block" />
                 大型LEDビジョンが地域とブランドを結びます。
               </p>
@@ -462,7 +460,7 @@ export default function Home() {
             <div className="relative group">
               <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/location6.jpg"
+                  src="/location7_edited.png"
                   alt="越谷LD-vision 日中の様子"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -474,7 +472,7 @@ export default function Home() {
             <div className="relative group">
               <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/night_location2.png"
+                  src="/night_location3_edited.png"
                   alt="越谷LD-vision 夜間の様子"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -607,9 +605,8 @@ export default function Home() {
                         {visionSpecs.map((spec, index) => (
                           <div
                             key={spec.label}
-                            className={`grid grid-cols-2 px-6 py-4 ${
-                              index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'
-                            }`}
+                            className={`grid grid-cols-2 px-6 py-4 ${index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'
+                              }`}
                           >
                             <div className="text-white/70 font-medium">{spec.label}</div>
                             <div className="text-white font-semibold">{spec.value}</div>
@@ -652,9 +649,8 @@ export default function Home() {
                 {videoSubmissionSpecs.map((spec, index) => (
                   <div
                     key={spec.label}
-                    className={`grid grid-cols-3 px-6 py-4 ${
-                      index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'
-                    }`}
+                    className={`grid grid-cols-3 px-6 py-4 ${index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'
+                      }`}
                   >
                     <div className="text-white/70 font-medium">{spec.label}</div>
                     <div className="col-span-2 text-white text-sm">{spec.value}</div>
@@ -671,9 +667,8 @@ export default function Home() {
                 {imageSubmissionSpecs.map((spec, index) => (
                   <div
                     key={spec.label}
-                    className={`grid grid-cols-3 px-6 py-4 ${
-                      index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'
-                    }`}
+                    className={`grid grid-cols-3 px-6 py-4 ${index % 2 === 0 ? 'bg-white/5' : 'bg-transparent'
+                      }`}
                   >
                     <div className="text-white/70 font-medium">{spec.label}</div>
                     <div className="col-span-2 text-white text-sm">{spec.value}</div>

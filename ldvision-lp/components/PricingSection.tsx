@@ -8,10 +8,10 @@ const pricingPlans = [
     plans: [
       { period: '1週間', airCount: 476, price: 60000, pricePerAir: 126, pricePerPerson: 0.89 },
       { period: '2週間', airCount: 952, price: 108000, pricePerAir: 113, pricePerPerson: 0.80 },
-      { period: '1ヶ月', airCount: 1904, price: 194400, pricePerAir: 93, pricePerPerson: 0.65 },
-      { period: '3ヶ月', airCount: 5718, price: 524800, pricePerAir: 84, pricePerPerson: 0.59 },
-      { period: '6ヶ月', airCount: 17154, price: 944700, pricePerAir: 76, pricePerPerson: 0.53 },
-      { period: '1年', airCount: 34306, price: 1700000, pricePerAir: 68, pricePerPerson: 0.47 },
+      { period: '1ヶ月', airCount: 2068, price: 194400, pricePerAir: 93, pricePerPerson: 0.65 },
+      { period: '3ヶ月', airCount: 6205, price: 524800, pricePerAir: 84, pricePerPerson: 0.59 },
+      { period: '6ヶ月', airCount: 12410, price: 944700, pricePerAir: 76, pricePerPerson: 0.53 },
+      { period: '1年', airCount: 24820, price: 1700000, pricePerAir: 68, pricePerPerson: 0.47 },
     ],
   },
   {
@@ -19,10 +19,10 @@ const pricingPlans = [
     plans: [
       { period: '1週間', airCount: 476, price: 120000, pricePerAir: 252, pricePerPerson: 1.78 },
       { period: '2週間', airCount: 952, price: 216000, pricePerAir: 226, pricePerPerson: 1.60 },
-      { period: '1ヶ月', airCount: 1904, price: 388800, pricePerAir: 186, pricePerPerson: 1.30 },
-      { period: '3ヶ月', airCount: 5718, price: 1096000, pricePerAir: 168, pricePerPerson: 1.18 },
-      { period: '6ヶ月', airCount: 17154, price: 1889400, pricePerAir: 152, pricePerPerson: 1.06 },
-      { period: '1年', airCount: 34306, price: 3400000, pricePerAir: 136, pricePerPerson: 0.94 },
+      { period: '1ヶ月', airCount: 2068, price: 388800, pricePerAir: 186, pricePerPerson: 1.30 },
+      { period: '3ヶ月', airCount: 6205, price: 1096000, pricePerAir: 168, pricePerPerson: 1.18 },
+      { period: '6ヶ月', airCount: 12410, price: 1889400, pricePerAir: 152, pricePerPerson: 1.06 },
+      { period: '1年', airCount: 24820, price: 3400000, pricePerAir: 136, pricePerPerson: 0.94 },
     ],
   },
   {
@@ -30,10 +30,10 @@ const pricingPlans = [
     plans: [
       { period: '1週間', airCount: 476, price: 240000, pricePerAir: 504, pricePerPerson: 3.56 },
       { period: '2週間', airCount: 952, price: 432000, pricePerAir: 452, pricePerPerson: 3.20 },
-      { period: '1ヶ月', airCount: 1904, price: 777600, pricePerAir: 372, pricePerPerson: 2.60 },
-      { period: '3ヶ月', airCount: 5718, price: 2192000, pricePerAir: 336, pricePerPerson: 2.36 },
-      { period: '6ヶ月', airCount: 17154, price: 3778800, pricePerAir: 304, pricePerPerson: 2.12 },
-      { period: '1年', airCount: 34306, price: 6800000, pricePerAir: 272, pricePerPerson: 1.88 },
+      { period: '1ヶ月', airCount: 2068, price: 777600, pricePerAir: 372, pricePerPerson: 2.60 },
+      { period: '3ヶ月', airCount: 6205, price: 2192000, pricePerAir: 336, pricePerPerson: 2.36 },
+      { period: '6ヶ月', airCount: 12410, price: 3778800, pricePerAir: 304, pricePerPerson: 2.12 },
+      { period: '1年', airCount: 24820, price: 6800000, pricePerAir: 272, pricePerPerson: 1.88 },
     ],
   },
 ]
@@ -50,11 +50,10 @@ export function PricingSectionV1() {
           <button
             key={plan.duration}
             onClick={() => setSelectedTab(index)}
-            className={`px-8 py-3 rounded-full font-semibold transition-all ${
-              selectedTab === index
-                ? 'bg-brand-light-blue text-white'
-                : 'glass-effect text-white/70 hover:text-white'
-            }`}
+            className={`px-8 py-3 rounded-full font-semibold transition-all ${selectedTab === index
+              ? 'bg-brand-light-blue text-white'
+              : 'glass-effect text-white/70 hover:text-white'
+              }`}
           >
             {plan.duration}プラン
           </button>
@@ -80,9 +79,8 @@ export function PricingSectionV1() {
               {selectedPlan.plans.map((item) => (
                 <tr
                   key={item.period}
-                  className={`border-b border-white/5 hover:bg-white/5 transition-colors ${
-                    item.period === '1年' ? 'bg-gradient-to-r from-brand-light-blue/10 to-transparent' : ''
-                  }`}
+                  className={`border-b border-white/5 hover:bg-white/5 transition-colors ${item.period === '1年' ? 'bg-gradient-to-r from-brand-light-blue/10 to-transparent' : ''
+                    }`}
                 >
                   <td className="px-6 py-4 text-white font-medium">{item.period}</td>
                   <td className="px-6 py-4 text-right text-white/70">
@@ -123,7 +121,7 @@ export function PricingSectionV1() {
           </p>
           <p className="text-white/80 text-lg">
             わずか
-            <span className="text-brand-light-blue font-bold text-5xl mx-2">
+            <span className="text-brand-light-blue font-bold text-4xl mx-2">
               {selectedPlan.plans[selectedPlan.plans.length - 1].pricePerPerson}円/人
             </span>
             でリーチ
@@ -250,31 +248,28 @@ export function PricingSectionV2() {
       <div className="flex justify-center gap-4 flex-wrap">
         <button
           onClick={() => setMainTab('short')}
-          className={`px-8 py-3 rounded-full font-semibold transition-all ${
-            mainTab === 'short'
-              ? 'bg-brand-light-blue text-white'
-              : 'glass-effect text-white/70 hover:text-white'
-          }`}
+          className={`px-8 py-3 rounded-full font-semibold transition-all ${mainTab === 'short'
+            ? 'bg-brand-light-blue text-white'
+            : 'glass-effect text-white/70 hover:text-white'
+            }`}
         >
           短期プラン
         </button>
         <button
           onClick={() => setMainTab('long')}
-          className={`px-8 py-3 rounded-full font-semibold transition-all ${
-            mainTab === 'long'
-              ? 'bg-brand-light-blue text-white'
-              : 'glass-effect text-white/70 hover:text-white'
-          }`}
+          className={`px-8 py-3 rounded-full font-semibold transition-all ${mainTab === 'long'
+            ? 'bg-brand-light-blue text-white'
+            : 'glass-effect text-white/70 hover:text-white'
+            }`}
         >
           長期プラン
         </button>
         <button
           onClick={() => setMainTab('custom')}
-          className={`px-8 py-3 rounded-full font-semibold transition-all ${
-            mainTab === 'custom'
-              ? 'bg-brand-light-blue text-white'
-              : 'glass-effect text-white/70 hover:text-white'
-          }`}
+          className={`px-8 py-3 rounded-full font-semibold transition-all ${mainTab === 'custom'
+            ? 'bg-brand-light-blue text-white'
+            : 'glass-effect text-white/70 hover:text-white'
+            }`}
         >
           オーダーメイド
         </button>
@@ -304,11 +299,10 @@ export function PricingSectionV2() {
               <button
                 key={plan.duration}
                 onClick={() => setDurationTab(index)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                  durationTab === index
-                    ? 'bg-white/10 text-white border border-brand-light-blue/50'
-                    : 'glass-effect text-white/60 hover:text-white border border-transparent'
-                }`}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${durationTab === index
+                  ? 'bg-white/10 text-white border border-brand-light-blue/50'
+                  : 'glass-effect text-white/60 hover:text-white border border-transparent'
+                  }`}
               >
                 {plan.duration}
               </button>
@@ -334,9 +328,8 @@ export function PricingSectionV2() {
                   {currentPlans.map((item) => (
                     <tr
                       key={item.period}
-                      className={`border-b border-white/5 hover:bg-white/5 transition-colors ${
-                        item.period === '1年' ? 'bg-gradient-to-r from-brand-light-blue/10 to-transparent' : ''
-                      }`}
+                      className={`border-b border-white/5 hover:bg-white/5 transition-colors ${item.period === '1年' ? 'bg-gradient-to-r from-brand-light-blue/10 to-transparent' : ''
+                        }`}
                     >
                       <td className="px-6 py-4 text-white font-medium">{item.period}</td>
                       <td className="px-6 py-4 text-right text-white/70">
