@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
 
     // 管理者向けメール本文
     const adminEmailContent = `
-<h2>D-signageお問い合わせフォームから新しいお問い合わせが届きました。</h2>
+<h2>LD-visionお問い合わせフォームから新しいお問い合わせが届きました。</h2>
 
 <h3>【お問い合わせ内容】</h3>
 <hr />
@@ -22,7 +22,7 @@ ${company || "未記入"}</p>
 ${name}</p>
 
 <p><strong>■ エリア（都道府県）</strong><br />
-${area}</p>
+${area || "未記入"}</p>
 
 <p><strong>■ メールアドレス</strong><br />
 ${email}</p>
@@ -43,9 +43,9 @@ ${message.replace(/\n/g, "<br />")}</p>
     // 管理者へメール送信
     const { data: adminEmail, error: adminError } = await resend.emails.send({
       // from: "D-signage Contact Form <onboarding@resend.dev>",
-      from: "D-signage Contact Form <contact@lizarazu.tokyo>",
+      from: "LD-vision Contact Form <contact@lizarazu.tokyo>",
       to: "signage@liberal.tokyo",
-      subject: `【D-signage】お問い合わせ: ${name}様より`,
+      subject: `【LD-vision】お問い合わせ: ${name}様より`,
       html: adminEmailContent,
       replyTo: email,
     });
@@ -92,7 +92,7 @@ ${message.replace(/\n/g, "<br />")}</p>
 <hr />
 
 <p>
-<strong>D-signage（ディーサイネージ）</strong><br />
+<strong>LD-vision（ディーサイネージ）</strong><br />
 お問い合わせ窓口<br />
 <br />
 電話: 03-5843-3773<br />
@@ -104,9 +104,9 @@ ${message.replace(/\n/g, "<br />")}</p>
     const { data: customerEmail, error: customerError } =
       await resend.emails.send({
         // from: "D-signage <onboarding@resend.dev>",　テストメールを送る際はresendにログインするためのアカウントでないと不可
-        from: "D-signage <contact@lizarazu.tokyo>",
+        from: "LD-vision <contact@lizarazu.tokyo>",
         to: email,
-        subject: "【D-signage】お問い合わせありがとうございます（自動返信）",
+        subject: "【LD-vision】お問い合わせありがとうございます（自動返信）",
         html: customerEmailContent,
       });
 
