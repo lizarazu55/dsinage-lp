@@ -229,6 +229,8 @@ function Navigation({ scrolled }: { scrolled: boolean }) {
 }
 
 
+import { ContactModal } from '@/components/ContactModal'
+
 function ContactForm() {
   const [formData, setFormData] = useState({
     company: '',
@@ -238,17 +240,40 @@ function ContactForm() {
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [modalState, setModalState] = useState<{ isOpen: boolean; status: 'success' | 'error' }>({
+    isOpen: false,
+    status: 'success',
+  })
+  const [phoneError, setPhoneError] = useState('')
+
+  const validatePhone = (phone: string) => {
+    // 日本の電話番号形式（ハイフンあり/なし両対応）
+    const regex = /^0\d{1,4}-?\d{1,4}-?\d{3,4}$/
+    return regex.test(phone)
+  }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+
+    if (name === 'phone') {
+      if (value && !validatePhone(value)) {
+        setPhoneError('正しい電話番号の形式で入力してください')
+      } else {
+        setPhoneError('')
+      }
+    }
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    if (!validatePhone(formData.phone)) {
+      setPhoneError('正しい電話番号の形式で入力してください')
+      return
+    }
+
     setIsSubmitting(true)
-    setSubmitStatus('idle')
 
     try {
       const response = await fetch('/api/contact', {
@@ -258,115 +283,119 @@ function ContactForm() {
       })
 
       if (response.ok) {
-        setSubmitStatus('success')
         setFormData({ company: '', name: '', email: '', phone: '', message: '' })
-        setTimeout(() => setSubmitStatus('idle'), 5000)
+        setModalState({ isOpen: true, status: 'success' })
       } else {
-        setSubmitStatus('error')
+        setModalState({ isOpen: true, status: 'error' })
       }
     } catch (error) {
       console.error('送信エラー:', error)
-      setSubmitStatus('error')
+      setModalState({ isOpen: true, status: 'error' })
     } finally {
       setIsSubmitting(false)
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="glass-effect rounded-2xl p-8 space-y-6">
-      <div className="grid md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="company" className="block text-white/70 mb-2">
-            会社・店舗名
-          </label>
-          <input
-            id="company"
-            name="company"
-            value={formData.company}
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
-            placeholder="株式会社〇〇"
-          />
+    <>
+      <ContactModal
+        isOpen={modalState.isOpen}
+        status={modalState.status}
+        onClose={() => setModalState((prev) => ({ ...prev, isOpen: false }))}
+      />
+      <form onSubmit={handleSubmit} className="glass-effect rounded-2xl p-8 space-y-6">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="company" className="block text-white/70 mb-2">
+              会社・店舗名
+            </label>
+            <input
+              id="company"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
+              placeholder="株式会社〇〇"
+            />
+          </div>
+          <div>
+            <label htmlFor="name" className="block text-white/70 mb-2">
+              お名前 <span className="text-brand-light-blue text-sm">※必須</span>
+            </label>
+            <input
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
+              placeholder="山田太郎"
+            />
+          </div>
         </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="email" className="block text-white/70 mb-2">
+              メールアドレス <span className="text-brand-light-blue text-sm">※必須</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
+              placeholder="example@email.com"
+            />
+          </div>
+          <div>
+            <label htmlFor="phone" className="block text-white/70 mb-2">
+              電話番号 <span className="text-brand-light-blue text-sm">※必須</span>
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+              className={`w-full px-4 py-3 rounded-lg bg-white/5 border text-white placeholder-white/40 focus:outline-none transition ${phoneError
+                ? 'border-red-500 focus:border-red-500'
+                : 'border-white/10 focus:border-brand-light-blue'
+                }`}
+              placeholder="048-000-0000"
+            />
+            {phoneError && <p className="text-red-400 text-xs mt-1">{phoneError}</p>}
+          </div>
+        </div>
+
         <div>
-          <label htmlFor="name" className="block text-white/70 mb-2">
-            お名前 <span className="text-brand-light-blue text-sm">※必須</span>
+          <label htmlFor="message" className="block text-white/70 mb-2">
+            お問い合わせ内容 <span className="text-brand-light-blue text-sm">※必須</span>
           </label>
-          <input
-            id="name"
-            name="name"
-            value={formData.name}
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
-            placeholder="山田太郎"
+            rows={5}
+            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition resize-none"
+            placeholder="放映希望期間やご相談内容をご記入ください。"
           />
         </div>
-      </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="email" className="block text-white/70 mb-2">
-            メールアドレス <span className="text-brand-light-blue text-sm">※必須</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
-            placeholder="example@email.com"
-          />
-        </div>
-        <div>
-          <label htmlFor="phone" className="block text-white/70 mb-2">
-            電話番号 <span className="text-brand-light-blue text-sm">※必須</span>
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
-            placeholder="048-000-0000"
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="message" className="block text-white/70 mb-2">
-          お問い合わせ内容 <span className="text-brand-light-blue text-sm">※必須</span>
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          rows={5}
-          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition resize-none"
-          placeholder="放映希望期間やご相談内容をご記入ください。"
-        />
-      </div>
-
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full bg-gradient-blue py-3 rounded-full font-semibold tracking-wider text-white hover:opacity-90 transition disabled:opacity-50"
-      >
-        {isSubmitting ? '送信中...' : '入力内容を送信する'}
-      </button>
-
-      {submitStatus === 'success' && (
-        <p className="text-brand-light-blue text-sm text-center">送信が完了しました。担当者より折り返しご連絡いたします。</p>
-      )}
-      {submitStatus === 'error' && (
-        <p className="text-red-400 text-sm text-center">送信に失敗しました。お手数ですが時間を置いて再度お試しください。</p>
-      )}
-    </form>
+        <button
+          type="submit"
+          disabled={isSubmitting || !!phoneError}
+          className="w-full bg-gradient-blue py-3 rounded-full font-semibold tracking-wider text-white hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isSubmitting ? '送信中...' : '入力内容を送信する'}
+        </button>
+      </form>
+    </>
   )
 }
 

@@ -58,7 +58,7 @@ ${message.replace(/\n/g, "<br />")}</p>
     const customerEmailContent = `
 <p>${name} 様</p>
 
-<p>この度は、D-signageへお問い合わせいただき、誠にありがとうございます。<br />
+<p>この度は、LD-visionへお問い合わせいただき、誠にありがとうございます。<br />
 以下の内容でお問い合わせを受け付けました。</p>
 
 <hr />
@@ -92,7 +92,7 @@ ${message.replace(/\n/g, "<br />")}</p>
 <hr />
 
 <p>
-<strong>LD-vision（ディーサイネージ）</strong><br />
+<strong>LD-vision（エルディービジョン）</strong><br />
 お問い合わせ窓口<br />
 <br />
 電話: 03-5843-3773<br />
