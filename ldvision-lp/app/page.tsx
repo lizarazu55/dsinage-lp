@@ -143,6 +143,56 @@ const companyInfo = {
   note: 'LD-visionはRizarazu Corporationが企画・運用する地域密着型デジタルサイネージです。',
 }
 
+const prefectures = [
+  '北海道',
+  '青森県',
+  '岩手県',
+  '宮城県',
+  '秋田県',
+  '山形県',
+  '福島県',
+  '茨城県',
+  '栃木県',
+  '群馬県',
+  '埼玉県',
+  '千葉県',
+  '東京都',
+  '神奈川県',
+  '新潟県',
+  '富山県',
+  '石川県',
+  '福井県',
+  '山梨県',
+  '長野県',
+  '岐阜県',
+  '静岡県',
+  '愛知県',
+  '三重県',
+  '滋賀県',
+  '京都府',
+  '大阪府',
+  '兵庫県',
+  '奈良県',
+  '和歌山県',
+  '鳥取県',
+  '島根県',
+  '岡山県',
+  '広島県',
+  '山口県',
+  '徳島県',
+  '香川県',
+  '愛媛県',
+  '高知県',
+  '福岡県',
+  '佐賀県',
+  '長崎県',
+  '熊本県',
+  '大分県',
+  '宮崎県',
+  '鹿児島県',
+  '沖縄県',
+]
+
 function Navigation({ scrolled }: { scrolled: boolean }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -178,7 +228,7 @@ function Navigation({ scrolled }: { scrolled: boolean }) {
             <a
               href="#contact"
               className="bg-gradient-blue text-white px-[15px] py-[9.5px] rounded-full font-semibold tracking-[1.6px] text-[13.5px] uppercase shadow-lg shadow-brand-light-blue/30 hover:opacity-90 transition ml-2"
-              style={{ fontFamily: 'var(--font-noto-sans)' }}
+              style={{ fontFamily: 'var(--font-noto-sans-jp)' }}
             >
               問い合わせ
             </a>
@@ -235,6 +285,7 @@ function ContactForm() {
   const [formData, setFormData] = useState({
     company: '',
     name: '',
+    area: '',
     email: '',
     phone: '',
     message: '',
@@ -252,7 +303,9 @@ function ContactForm() {
     return regex.test(phone)
   }
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target
     setFormData((prev) => ({ ...prev, [name]: value }))
 
@@ -283,7 +336,14 @@ function ContactForm() {
       })
 
       if (response.ok) {
-        setFormData({ company: '', name: '', email: '', phone: '', message: '' })
+        setFormData({
+          company: '',
+          name: '',
+          area: '',
+          email: '',
+          phone: '',
+          message: '',
+        })
         setModalState({ isOpen: true, status: 'success' })
       } else {
         setModalState({ isOpen: true, status: 'error' })
@@ -332,6 +392,29 @@ function ContactForm() {
               placeholder="山田太郎"
             />
           </div>
+        </div>
+
+        <div>
+          <label htmlFor="area" className="block text-white/70 mb-2">
+            エリア（都道府県） <span className="text-brand-light-blue text-sm">※必須</span>
+          </label>
+          <select
+            id="area"
+            name="area"
+            value={formData.area}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-brand-light-blue transition"
+          >
+            <option value="" disabled className="text-gray-400">
+              選択してください
+            </option>
+            {prefectures.map((prefecture) => (
+              <option key={prefecture} value={prefecture} className="text-black">
+                {prefecture}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">

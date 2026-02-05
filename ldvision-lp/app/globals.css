@@ -24,7 +24,7 @@
   body {
     color: rgb(var(--foreground-rgb));
     background: #0a0a0a;
-    font-family: var(--font-noto-serif-jp), "Noto Serif JP", serif;
+    font-family: var(--font-noto-sans-jp), "Noto Sans JP", sans-serif;
     position: relative;
   }
 

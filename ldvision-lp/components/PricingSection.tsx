@@ -493,123 +493,20 @@ export function PricingSectionV2() {
           </div>
 
           {/* 問い合わせフォーム */}
-          <div className="glass-effect rounded-2xl p-8">
-            <h4 className="text-xl font-semibold text-white mb-6 text-center">お問い合わせフォーム</h4>
-            <CustomPlanContactForm />
+          <div className="glass-effect rounded-2xl p-8 text-center space-y-4">
+            <h4 className="text-xl font-semibold text-white">お問い合わせはこちら</h4>
+            <p className="text-white/70">
+              オーダーメイドの詳細は下のお問い合わせフォームからご連絡ください。
+            </p>
+            <a
+              href="#contact"
+              className="inline-block bg-gradient-blue text-white px-8 py-3 rounded-full font-semibold tracking-wider hover:opacity-90 transition"
+            >
+              問い合わせフォームへ進む
+            </a>
           </div>
         </div>
       )}
     </div>
-  )
-}
-
-// オーダーメイドプラン用の簡易フォーム
-function CustomPlanContactForm() {
-  const [formData, setFormData] = useState({
-    company: '',
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  })
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    // フォーム送信処理（page.tsxのContactFormと同じロジック）
-    window.location.href = '#contact'
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="custom-company" className="block text-white/70 mb-2 text-sm">
-            会社・店舗名
-          </label>
-          <input
-            id="custom-company"
-            name="company"
-            value={formData.company}
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
-            placeholder="株式会社〇〇"
-          />
-        </div>
-        <div>
-          <label htmlFor="custom-name" className="block text-white/70 mb-2 text-sm">
-            お名前 <span className="text-brand-light-blue">※必須</span>
-          </label>
-          <input
-            id="custom-name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
-            placeholder="山田太郎"
-          />
-        </div>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="custom-email" className="block text-white/70 mb-2 text-sm">
-            メールアドレス <span className="text-brand-light-blue">※必須</span>
-          </label>
-          <input
-            type="email"
-            id="custom-email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
-            placeholder="example@email.com"
-          />
-        </div>
-        <div>
-          <label htmlFor="custom-phone" className="block text-white/70 mb-2 text-sm">
-            電話番号 <span className="text-brand-light-blue">※必須</span>
-          </label>
-          <input
-            id="custom-phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition"
-            placeholder="048-000-0000"
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="custom-message" className="block text-white/70 mb-2 text-sm">
-          ご要望内容 <span className="text-brand-light-blue">※必須</span>
-        </label>
-        <textarea
-          id="custom-message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          rows={5}
-          className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-brand-light-blue transition resize-none"
-          placeholder="ご希望のプラン内容や実施時期などをご記入ください。"
-        />
-      </div>
-
-      <button
-        type="submit"
-        className="w-full bg-gradient-blue py-3 rounded-full font-semibold tracking-wider text-white hover:opacity-90 transition"
-      >
-        お問い合わせ内容を送信する
-      </button>
-    </form>
   )
 }

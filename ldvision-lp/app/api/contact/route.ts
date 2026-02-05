@@ -3,10 +3,134 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const prefectures = new Set([
+  '北海道',
+  '青森県',
+  '岩手県',
+  '宮城県',
+  '秋田県',
+  '山形県',
+  '福島県',
+  '茨城県',
+  '栃木県',
+  '群馬県',
+  '埼玉県',
+  '千葉県',
+  '東京都',
+  '神奈川県',
+  '新潟県',
+  '富山県',
+  '石川県',
+  '福井県',
+  '山梨県',
+  '長野県',
+  '岐阜県',
+  '静岡県',
+  '愛知県',
+  '三重県',
+  '滋賀県',
+  '京都府',
+  '大阪府',
+  '兵庫県',
+  '奈良県',
+  '和歌山県',
+  '鳥取県',
+  '島根県',
+  '岡山県',
+  '広島県',
+  '山口県',
+  '徳島県',
+  '香川県',
+  '愛媛県',
+  '高知県',
+  '福岡県',
+  '佐賀県',
+  '長崎県',
+  '熊本県',
+  '大分県',
+  '宮崎県',
+  '鹿児島県',
+  '沖縄県',
+]);
+
+const normalize = (value: unknown) =>
+  typeof value === "string" ? value.trim() : "";
+
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (char) => {
+    const map: Record<string, string> = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    return map[char] ?? char;
+  });
+
+const isValidEmail = (value: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+const isValidPhone = (value: string) =>
+  /^0\d{1,4}-?\d{1,4}-?\d{3,4}$/.test(value);
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { company, name, area, email, phone, message } = body;
+    const body = await request.json().catch(() => null);
+    if (!body || typeof body !== "object") {
+      return NextResponse.json(
+        { message: "不正なリクエストです" },
+        { status: 400 }
+      );
+    }
+
+    const { company, name, area, email, phone, message } = body as Record<
+      string,
+      unknown
+    >;
+
+    const companyText = normalize(company);
+    const nameText = normalize(name);
+    const areaText = normalize(area);
+    const emailText = normalize(email);
+    const phoneText = normalize(phone);
+    const messageText = typeof message === "string" ? message.trim() : "";
+
+    if (!nameText || !areaText || !emailText || !phoneText || !messageText) {
+      return NextResponse.json(
+        { message: "必須項目が未入力です" },
+        { status: 400 }
+      );
+    }
+
+    if (!prefectures.has(areaText)) {
+      return NextResponse.json(
+        { message: "エリアの指定が不正です" },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidEmail(emailText)) {
+      return NextResponse.json(
+        { message: "メールアドレスの形式が不正です" },
+        { status: 400 }
+      );
+    }
+
+    if (!isValidPhone(phoneText)) {
+      return NextResponse.json(
+        { message: "電話番号の形式が不正です" },
+        { status: 400 }
+      );
+    }
+
+    const safeCompany = escapeHtml(companyText || "未記入");
+    const safeName = escapeHtml(nameText);
+    const safeArea = escapeHtml(areaText);
+    const safeEmail = escapeHtml(emailText);
+    const safePhone = escapeHtml(phoneText);
+    const safeMessage = escapeHtml(messageText).replace(/\n/g, "<br />");
+    const subjectName = nameText.replace(/[\r\n]+/g, " ").trim();
 
     // 管理者向けメール本文
     const adminEmailContent = `
@@ -16,22 +140,22 @@ export async function POST(request: NextRequest) {
 <hr />
 
 <p><strong>■ 会社名</strong><br />
-${company || "未記入"}</p>
+${safeCompany}</p>
 
 <p><strong>■ お名前</strong><br />
-${name}</p>
+${safeName}</p>
 
 <p><strong>■ エリア（都道府県）</strong><br />
-${area || "未記入"}</p>
+${safeArea}</p>
 
 <p><strong>■ メールアドレス</strong><br />
-${email}</p>
+${safeEmail}</p>
 
 <p><strong>■ 電話番号</strong><br />
-${phone || "未記入"}</p>
+${safePhone}</p>
 
 <p><strong>■ お問い合わせ内容</strong><br />
-${message.replace(/\n/g, "<br />")}</p>
+${safeMessage}</p>
 
 <hr />
 
@@ -45,9 +169,9 @@ ${message.replace(/\n/g, "<br />")}</p>
       // from: "D-signage Contact Form <onboarding@resend.dev>",
       from: "LD-vision Contact Form <contact@lizarazu.tokyo>",
       to: "signage@liberal.tokyo",
-      subject: `【LD-vision】お問い合わせ: ${name}様より`,
+      subject: `【LD-vision】お問い合わせ: ${subjectName}様より`,
       html: adminEmailContent,
-      replyTo: email,
+      replyTo: emailText,
     });
 
     if (adminError) {
@@ -56,7 +180,7 @@ ${message.replace(/\n/g, "<br />")}</p>
 
     // お客様向け自動返信メール本文
     const customerEmailContent = `
-<p>${name} 様</p>
+<p>${safeName} 様</p>
 
 <p>この度は、LD-visionへお問い合わせいただき、誠にありがとうございます。<br />
 以下の内容でお問い合わせを受け付けました。</p>
@@ -64,22 +188,22 @@ ${message.replace(/\n/g, "<br />")}</p>
 <hr />
 
 <p><strong>■ 会社名</strong><br />
-${company || "未記入"}</p>
+${safeCompany}</p>
 
 <p><strong>■ お名前</strong><br />
-${name}</p>
+${safeName}</p>
 
 <p><strong>■ エリア（都道府県）</strong><br />
-${area}</p>
+${safeArea}</p>
 
 <p><strong>■ メールアドレス</strong><br />
-${email}</p>
+${safeEmail}</p>
 
 <p><strong>■ 電話番号</strong><br />
-${phone || "未記入"}</p>
+${safePhone}</p>
 
 <p><strong>■ お問い合わせ内容</strong><br />
-${message.replace(/\n/g, "<br />")}</p>
+${safeMessage}</p>
 
 <hr />
 
@@ -105,7 +229,7 @@ ${message.replace(/\n/g, "<br />")}</p>
       await resend.emails.send({
         // from: "D-signage <onboarding@resend.dev>",　テストメールを送る際はresendにログインするためのアカウントでないと不可
         from: "LD-vision <contact@lizarazu.tokyo>",
-        to: email,
+        to: emailText,
         subject: "【LD-vision】お問い合わせありがとうございます（自動返信）",
         html: customerEmailContent,
       });
