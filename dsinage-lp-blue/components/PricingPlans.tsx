@@ -324,7 +324,10 @@ export default function PricingPlans() {
             </>
           ) : (
             <>
-              <p className="text-2xl font-bold mb-4">D-systemご利用の方<p className='text-[#FFD700]  mt-6'><span className='text-7xl'>100台</span> 限定</p></p>
+              <p className="text-2xl font-bold mb-2">D-systemご利用の方</p>
+              <p className="text-[#FFD700] mt-2 font-bold">
+                <span className="text-7xl">100台</span> 限定
+              </p>
               <button
                 onClick={() => setShowDSystemPlans(false)}
                 className="inline-flex items-center justify-center w-20 h-10 text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-full transition-all duration-300"

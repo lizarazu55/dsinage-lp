@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Noto_Sans_JP } from 'next/font/google'
+import { Noto_Sans_JP, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import { Analytics } from '@vercel/analytics/next';
 
@@ -9,11 +9,15 @@ import {
  } from '@next/third-parties/google'
 
 
-const inter = Inter({ subsets: ['latin'] })
 const notoSansJP = Noto_Sans_JP({ 
   subsets: ['latin'],
   weight: ['300', '400', '500', '700', '900'],
   variable: '--font-noto-sans-jp',
+})
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-playfair',
 })
 const isProduction = process.env.NODE_ENV === 'production'
 const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!
@@ -38,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       {/* {isProduction && <GoogleTagManager gtmId={gtmId} />} */}
-      <body className={`${inter.className} ${notoSansJP.variable}`}>
+      <body className={`${notoSansJP.variable} ${playfair.variable}`}>
         {children}
         <Analytics />
         {isProduction && <GoogleAnalytics gaId={gaId} />}

@@ -3,10 +3,55 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { company, name, area, email, phone, message } = body;
+    const body = await request.json().catch(() => null);
+    if (!body || typeof body !== "object") {
+      return NextResponse.json(
+        { message: "不正なリクエストです" },
+        { status: 400 }
+      );
+    }
+
+    const company =
+      typeof body.company === "string" ? body.company.trim() : "";
+    const name = typeof body.name === "string" ? body.name.trim() : "";
+    const area = typeof body.area === "string" ? body.area.trim() : "";
+    const email = typeof body.email === "string" ? body.email.trim() : "";
+    const phone = typeof body.phone === "string" ? body.phone.trim() : "";
+    const message =
+      typeof body.message === "string" ? body.message.trim() : "";
+
+    if (!name || !area || !email || !phone || !message) {
+      return NextResponse.json(
+        { message: "必須項目が不足しています" },
+        { status: 400 }
+      );
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      return NextResponse.json(
+        { message: "メールアドレスの形式が正しくありません" },
+        { status: 400 }
+      );
+    }
+
+    const safeCompany = company ? escapeHtml(company) : "未記入";
+    const safeName = escapeHtml(name);
+    const safeArea = escapeHtml(area);
+    const safeEmail = escapeHtml(email);
+    const safePhone = phone ? escapeHtml(phone) : "未記入";
+    const safeMessage = escapeHtml(message).replace(/\n/g, "<br />");
+    const subjectName = name.replace(/[\r\n]+/g, " ").trim();
 
     // 管理者向けメール本文
     const adminEmailContent = `
@@ -16,22 +61,22 @@ export async function POST(request: NextRequest) {
 <hr />
 
 <p><strong>■ 会社名</strong><br />
-${company || "未記入"}</p>
+${safeCompany}</p>
 
 <p><strong>■ お名前</strong><br />
-${name}</p>
+${safeName}</p>
 
 <p><strong>■ エリア（都道府県）</strong><br />
-${area}</p>
+${safeArea}</p>
 
 <p><strong>■ メールアドレス</strong><br />
-${email}</p>
+${safeEmail}</p>
 
 <p><strong>■ 電話番号</strong><br />
-${phone || "未記入"}</p>
+${safePhone}</p>
 
 <p><strong>■ お問い合わせ内容</strong><br />
-${message.replace(/\n/g, "<br />")}</p>
+${safeMessage}</p>
 
 <hr />
 
@@ -45,7 +90,7 @@ ${message.replace(/\n/g, "<br />")}</p>
       // from: "D-signage Contact Form <onboarding@resend.dev>",
       from: "D-signage Contact Form <contact@lizarazu.tokyo>",
       to: "signage@liberal.tokyo",
-      subject: `【D-signage】お問い合わせ: ${name}様より`,
+      subject: `【D-signage】お問い合わせ: ${subjectName}様より`,
       html: adminEmailContent,
       replyTo: email,
     });
@@ -56,7 +101,7 @@ ${message.replace(/\n/g, "<br />")}</p>
 
     // お客様向け自動返信メール本文
     const customerEmailContent = `
-<p>${name} 様</p>
+<p>${safeName} 様</p>
 
 <p>この度は、D-signageへお問い合わせいただき、誠にありがとうございます。<br />
 以下の内容でお問い合わせを受け付けました。</p>
@@ -64,22 +109,22 @@ ${message.replace(/\n/g, "<br />")}</p>
 <hr />
 
 <p><strong>■ 会社名</strong><br />
-${company || "未記入"}</p>
+${safeCompany}</p>
 
 <p><strong>■ お名前</strong><br />
-${name}</p>
+${safeName}</p>
 
 <p><strong>■ エリア（都道府県）</strong><br />
-${area}</p>
+${safeArea}</p>
 
 <p><strong>■ メールアドレス</strong><br />
-${email}</p>
+${safeEmail}</p>
 
 <p><strong>■ 電話番号</strong><br />
-${phone || "未記入"}</p>
+${safePhone}</p>
 
 <p><strong>■ お問い合わせ内容</strong><br />
-${message.replace(/\n/g, "<br />")}</p>
+${safeMessage}</p>
 
 <hr />
 
