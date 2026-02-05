@@ -52,7 +52,7 @@ export function ContactModal({ isOpen, onClose, status }: ContactModalProps) {
                 <h3 className="text-xl font-bold text-white mb-2">
                     {status === 'success' ? '送信が完了しました' : '送信に失敗しました'}
                 </h3>
-                <p className="text-white/70 mb-8 leading-relaxed">
+                <p className="text-white/70 mb-8 leading-relaxed whitespace-pre-line">
                     {status === 'success'
                         ? 'お問い合わせありがとうございます。\n内容を確認次第、担当者よりご連絡いたします。'
                         : '申し訳ございません。\nシステムエラーが発生しました。\n時間をおいて再度お試しいただくか、\nお電話にてお問い合わせください。'}
