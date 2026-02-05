@@ -24,12 +24,14 @@ const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
 // const gtmId = process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID!
 
 export const metadata: Metadata = {
-  title: 'D-signage | デジタルサイネージで新しい広告体験を',
-  description: 'D-signageは最先端のデジタルサイネージソリューションを提供。高画質ディスプレイと簡単な操作で、あなたのビジネスを次のレベルへ。',
-  keywords: 'デジタルサイネージ, digital signage, 広告, ディスプレイ, D-signage',
+  title: 'LD-vision | 越谷駅前のデジタルサイネージ',
+  description:
+    '越谷駅東口徒歩2分の大型LEDビジョン「LD-vision」。月間約30万人が行き交う駅前で、ブランドと地域を結びます。',
+  keywords: 'LD-vision, デジタルサイネージ, 越谷, 広告, LEDビジョン',
   openGraph: {
-    title: 'D-signage | デジタルサイネージで新しい広告体験を',
-    description: 'D-signageは最先端のデジタルサイネージソリューションを提供',
+    title: 'LD-vision | 越谷駅前のデジタルサイネージ',
+    description:
+      '越谷駅東口徒歩2分の大型LEDビジョン「LD-vision」。月間約30万人が行き交う駅前で、ブランドと地域を結びます。',
     type: 'website',
   },
 }
