@@ -489,7 +489,7 @@ export default function Home() {
             <div className="relative group">
               <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/location7_edited.png"
+                  src="/location.png"
                   alt="越谷LD-vision 日中の様子"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -501,7 +501,7 @@ export default function Home() {
             <div className="relative group">
               <div className="relative h-[300px] md:h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/night_location3_edited.png"
+                  src="/night_location.png"
                   alt="越谷LD-vision 夜間の様子"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
