@@ -61,21 +61,25 @@ export default function WorkflowSection() {
       }
     )
 
-    stepRefs.current.forEach((ref) => {
+    const mobileRefs = stepRefs.current
+    const desktopRefs = desktopStepRefs.current
+
+    mobileRefs.forEach((ref) => {
       if (ref) observer.observe(ref)
     })
     
-    desktopStepRefs.current.forEach((ref) => {
+    desktopRefs.forEach((ref) => {
       if (ref) observer.observe(ref)
     })
 
     return () => {
-      stepRefs.current.forEach((ref) => {
+      mobileRefs.forEach((ref) => {
         if (ref) observer.unobserve(ref)
       })
-      desktopStepRefs.current.forEach((ref) => {
+      desktopRefs.forEach((ref) => {
         if (ref) observer.unobserve(ref)
       })
+      observer.disconnect()
     }
   }, [visibleSteps])
 
