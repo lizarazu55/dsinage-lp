@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -7,11 +9,15 @@ export default function Hero() {
       
       {/* Background image with 3D rotation */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <img 
+        <Image 
           src="/sozai.png" 
           alt="" 
-          className="opacity-70 md:opacity-70 object-contain h-[80vh] md:h-[70vh] animate-rotate-3d-slow"
+          width={1440}
+          height={2960}
+          sizes="(min-width: 768px) 70vh, 80vh"
+          className="opacity-70 md:opacity-70 object-contain h-[80vh] md:h-[70vh] w-auto animate-rotate-3d-slow"
           style={{ transformStyle: 'preserve-3d' }}
+          priority
         />
       </div>
       
@@ -27,7 +33,10 @@ export default function Hero() {
         <div>
           <div className="mb-8">
             <div className="inline-block">
-              <h1 className="text-6xl md:text-8xl font-bold mb-2" style={{ fontFamily: 'var(--font-playfair)' }}>
+              <h1
+                className="text-[60px] md:text-8xl font-bold mb-2"
+                style={{ fontFamily: 'Inter, var(--font-noto-sans-jp), sans-serif' }}
+              >
                 <span className="gradient-text">D-signage</span>
               </h1>
               <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-brand-light-blue to-transparent"></div>
@@ -37,7 +46,10 @@ export default function Hero() {
           <p className="text-xl md:text-2xl text-brand-light-blue/60 mb-2 tracking-widest font-light">
             produced by
           </p>
-          <p className="text-2xl md:text-3xl text-white/90 mb-8 italic" style={{ fontFamily: 'var(--font-playfair)' }}>
+          <p
+            className="text-2xl md:text-3xl text-white/90 mb-8 italic"
+            style={{ fontFamily: 'Inter, var(--font-noto-sans-jp), sans-serif' }}
+          >
             D-system
           </p>
           

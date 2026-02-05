@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function ProductShowcase() {
@@ -71,7 +72,7 @@ export default function ProductShowcase() {
       <div className="section-padding">
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <p className="text-brand-light-blue/60 tracking-widest mb-4">SPECIFICATIONS</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-sans">
             サイネージ仕様
           </h2>
           <div className="h-px w-32 bg-gradient-to-r from-transparent via-brand-light-blue to-transparent mx-auto"></div>
@@ -84,10 +85,13 @@ export default function ProductShowcase() {
             <div className="relative">
               <div className="glass-effect rounded-2xl p-8">
                 <div className="relative flex justify-center items-center mb-6">
-                  <img 
+                  <Image 
                     src="/sinage-sample.png" 
-                    alt="デジタルサイネージ" 
-                    className="h-96 object-contain"
+                    alt="デジタルサイネージ"
+                    width={1414}
+                    height={2000}
+                    sizes="(min-width: 1024px) 384px, 60vw"
+                    className="h-96 w-auto object-contain"
                   />
                   
                   {/* 寸法線表示 */}

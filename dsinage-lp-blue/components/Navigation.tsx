@@ -26,8 +26,8 @@ export default function Navigation({ scrolled }: NavigationProps) {
           <div className="flex items-center space-x-2">
             <button 
               onClick={scrollToTop}
-              className="text-brand-light-blue font-bold text-xl tracking-wider hover:text-brand-light-blue/80 transition-colors cursor-pointer" 
-              style={{ fontFamily: 'var(--font-playfair)' }}
+              className="text-brand-light-blue font-bold text-xl tracking-wider hover:text-brand-light-blue/80 transition-colors cursor-pointer"
+              style={{ fontFamily: 'Inter, var(--font-noto-sans-jp), sans-serif' }}
             >
               D-signage
             </button>

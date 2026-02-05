@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function CoverageMap() {
@@ -46,10 +47,12 @@ export default function CoverageMap() {
               
               <div className="order-1 md:order-2 w-full">
                 <div className="relative h-64 md:h-96 w-full">
-                  <img 
+                  <Image 
                     src="/map.png" 
-                    alt="対応エリアマップ" 
-                    className="w-full h-full object-contain md:object-cover rounded-xl"
+                    alt="対応エリアマップ"
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-contain md:object-cover rounded-xl"
                   />
                 </div>
               </div>

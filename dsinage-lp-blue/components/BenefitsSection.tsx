@@ -36,10 +36,10 @@ export default function BenefitsSection() {
     <section ref={ref} className="py-16 relative">
       <div className="section-padding">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-3xl md:text-5xl font-light text-white mb-4 text-center" style={{ fontFamily: 'var(--font-noto-serif-jp)' }}>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 text-center font-sans">
             デジタルサイネージ
           </h2>
-          <p className="text-xl md:text-2xl text-brand-light-blue/80 mb-12 tracking-wider text-center">
+          <p className="text-xl md:text-2xl text-brand-light-blue/80 mb-12 tracking-wider text-center font-sans">
             ～ 5つの導入メリット ～
           </p>
         </div>

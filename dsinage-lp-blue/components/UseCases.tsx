@@ -54,7 +54,7 @@ export default function UseCases() {
       <div className="section-padding">
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <p className="text-brand-light-blue/60 tracking-widest mb-4">USE CASES</p>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-playfair)' }}>
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 font-sans">
             活用事例
           </h2>
           {/* <p className="text-white/60 mt-4 text-lg">

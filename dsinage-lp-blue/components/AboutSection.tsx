@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
 export default function AboutSection() {
@@ -60,7 +61,7 @@ export default function AboutSection() {
     <section ref={ref} id="about" className="py-20 relative overflow-hidden">
       <div className="section-padding">
         <div className={`text-center mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-sans">
             D-signage とは<span className="gradient-text">？</span>
           </h2>
           <div className="h-px w-32 bg-gradient-to-r from-transparent via-brand-light-blue to-transparent mx-auto"></div>
@@ -69,10 +70,13 @@ export default function AboutSection() {
         <div className="relative max-w-6xl mx-auto" style={{ minHeight: '500px' }}>
           {/* 画像アニメーション */}
           <div className={`absolute inset-0 flex items-center justify-center ${isVisible ? '' : 'opacity-0'}`}>
-            <img 
+            <Image 
               src="/lady.png" 
-              alt="D-signage イメージ" 
-              className={`w-2/3 md:w-1/2 max-h-[740px] rounded-lg ${isVisible ? 'animate-spin-and-shrink' : ''}`}
+              alt="D-signage イメージ"
+              width={1440}
+              height={2960}
+              sizes="(min-width: 768px) 50vw, 66vw"
+              className={`w-2/3 md:w-1/2 max-h-[740px] h-auto rounded-lg ${isVisible ? 'animate-spin-and-shrink' : ''}`}
               style={{ transformStyle: 'preserve-3d' }}
             />
           </div>

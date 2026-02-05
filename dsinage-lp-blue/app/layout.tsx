@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Noto_Sans_JP, Playfair_Display } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import { Analytics } from '@vercel/analytics/next';
 
@@ -9,15 +9,30 @@ import {
  } from '@next/third-parties/google'
 
 
-const notoSansJP = Noto_Sans_JP({ 
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '700', '900'],
+const notoSansJP = localFont({
+  src: './fonts/NotoSansJP-VariableFont_wght.ttf',
+  weight: '100 900',
   variable: '--font-noto-sans-jp',
+  display: 'swap',
+  fallback: [
+    'Noto Sans JP',
+    'Hiragino Kaku Gothic ProN',
+    'Hiragino Sans',
+    'Yu Gothic',
+    'Meiryo',
+    'sans-serif',
+  ],
 })
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+const playfair = localFont({
+  src: [
+    { path: './fonts/playfair-display-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/playfair-display-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: './fonts/playfair-display-latin-600-normal.woff2', weight: '600', style: 'normal' },
+    { path: './fonts/playfair-display-latin-700-normal.woff2', weight: '700', style: 'normal' },
+  ],
   variable: '--font-playfair',
+  display: 'swap',
+  fallback: ['Times New Roman', 'Times', 'serif'],
 })
 const isProduction = process.env.NODE_ENV === 'production'
 const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!
